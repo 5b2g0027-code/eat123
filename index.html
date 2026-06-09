@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="食光之境 (Gourmet Haven) - 提供頂級視覺饗宴的美食網站。包含智慧食譜篩選、創新的食材「風味搭配矩陣」、3D擬真引導式烹飪計時器與智慧每週餐食規劃。">
+    <meta name="keywords" content="美食, 食譜, 風味搭配, 烹飪計時器, 餐食規劃, 奢華設計">
+    <meta name="author" content="Gourmet Haven Team">
+    <title>食光之境 | Gourmet Haven — 頂級數位美食殿堂</title>
+    
+    <!-- Link to Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+
+    <!-- ==========================================
+         NAVBAR HEADER
+         ========================================== -->
+    <header class="navbar glass" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo" id="logo-home">
+                <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5h-2v-2h2v2zm0-4.5h-2V7h2v6z"/>
+                </svg>
+                <span>食光之境</span>
+            </a>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><span class="nav-link active" id="nav-recipes" data-target="recipes">食譜市集</span></li>
+                    <li><span class="nav-link" id="nav-matrix" data-target="matrix">風味交響樂</span></li>
+                    <li><span class="nav-link" id="nav-planner" data-target="planner">每週食曆</span></li>
+                    <li><span class="nav-link" id="nav-contact-trigger">聯絡我們</span></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <button class="btn-icon theme-toggle-btn" id="theme-toggle" aria-label="切換深淺色主題">
+                    <!-- Sun/Moon SVG Toggle will change dynamically -->
+                    <svg id="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+                    </svg>
+                </button>
+                <a href="#page-planner" class="btn btn-secondary" id="nav-btn-planner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>我的採購單</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         HERO SECTION (HOME GATEWAY)
+         ========================================== -->
+    <section class="hero-section" id="hero-banner">
+        <div class="container hero-content">
+            <span class="hero-subtitle">THE CULINARY ODYSSEY</span>
+            <h1 class="hero-title">激發感官的<br><span class="text-gradient">究極美食美學</span></h1>
+            <p class="hero-desc">在這裡，烹飪不再只是調配，而是一場交織著視覺、嗅覺與食材風味的交響樂章。探索無盡的美食食譜，與食材共舞。</p>
+            
+            <div class="search-box glass">
+                <input type="text" id="recipe-search-input" placeholder="搜尋精緻料理、食材或風味分類..." autocomplete="off">
+                <button class="btn btn-primary" id="recipe-search-btn">探索</button>
+                <div class="search-suggestions" id="search-suggestions">
+                    <!-- Dynamic search hints go here -->
+                </div>
+            </div>
+        </div>
+        
+        <a href="#main-content" class="scroll-down" id="scroll-to-content">
+            <span class="scroll-text">往下探索</span>
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </a>
+    </section>
+
+    <!-- ==========================================
+         MAIN INTERACTIVE VIEWPORTS
+         ========================================== -->
+    <main id="main-content">
+
+        <!-- VIEW 1: RECIPES DIRECTORY -->
+        <section id="page-recipes" class="page-view active container">
+            <div class="section-header">
+                <span class="section-subtitle">DISCOVER & CREATE</span>
+                <h2 class="section-title">頂級珍饈食譜</h2>
+            </div>
+            
+            <div class="recipes-layout">
+                <!-- Filter Sidebar -->
+                <aside class="filter-sidebar glass">
+                    <div class="filter-group">
+                        <h4>依食材主料</h4>
+                        <div class="filter-tags" id="filter-ingredients">
+                            <button class="filter-tag-btn active" data-val="all">全部</button>
+                            <button class="filter-tag-btn" data-val="鮭魚">鮭魚</button>
+                            <button class="filter-tag-btn" data-val="牛肉">牛肉</button>
+                            <button class="filter-tag-btn" data-val="豆腐">豆腐</button>
+                            <button class="filter-tag-btn" data-val="酪梨">酪梨</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <h4>料理難度</h4>
+                        <div class="filter-tags" id="filter-difficulty">
+                            <button class="filter-tag-btn active" data-val="all">全部</button>
+                            <button class="filter-tag-btn" data-val="初級">初級</button>
+                            <button class="filter-tag-btn" data-val="中級">中級</button>
+                            <button class="filter-tag-btn" data-val="高級">高級</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>飲食需求</h4>
+                        <div class="filter-tags" id="filter-diet">
+                            <button class="filter-tag-btn active" data-val="all">無限制</button>
+                            <button class="filter-tag-btn" data-val="無麩質">無麩質</button>
+                            <button class="filter-tag-btn" data-val="素食">素食</button>
+                            <button class="filter-tag-btn" data-val="低碳水">低碳水</button>
+                        </div>
+                    </div>
+                </aside>
+                
+                <!-- Catalog Grid -->
+                <div class="recipes-grid" id="recipes-grid">
+                    <!-- Dynamic Recipe Cards go here via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: RECIPE DETAIL VIEW -->
+        <section id="page-detail" class="page-view container">
+            <!-- Back to grid -->
+            <button class="btn btn-secondary" id="detail-back-btn" style="margin-bottom: 2rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                返回食譜市集
+            </button>
+            
+            <div class="recipe-detail-grid" id="recipe-detail-content">
+                <!-- Left panel: Media & Metadata (Hydrated by JS) -->
+                <!-- Right panel: Directions, Ingredients, Flavor Radar -->
+            </div>
+            
+            <!-- Dynamic Reviews Section -->
+            <div class="reviews-section" id="reviews-wrapper">
+                <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.8rem; font-family: var(--font-heading);">饕客食評</h3>
+                </div>
+                
+                <div class="reviews-grid-layout">
+                    <!-- Review composer -->
+                    <div class="review-composer glass">
+                        <h4>發表您的品鑑</h4>
+                        <p class="review-composer-desc">與其他美食愛好者分享您烹飪或享用這道料理的心得。</p>
+                        
+                        <form id="review-form" onsubmit="event.preventDefault();">
+                            <div class="rating-stars-input" id="star-rating-input">
+                                <button type="button" class="star-btn" data-star="1" aria-label="1星">
+                                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" class="star-btn" data-star="2" aria-label="2星">
+                                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" class="star-btn" data-star="3" aria-label="3星">
+                                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" class="star-btn" data-star="4" aria-label="4星">
+                                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                                <button type="button" class="star-btn" data-star="5" aria-label="5星">
+                                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                </button>
+                            </div>
+                            
+                            <div class="review-form-input">
+                                <input type="text" id="review-author" placeholder="您的尊姓大名..." required>
+                                <textarea id="review-text" placeholder="您的品鑑心得、烹飪建議或風味改良..." required></textarea>
+                                <button class="btn btn-primary" id="submit-review-btn">送出評論</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Reviews list -->
+                    <div class="reviews-list-container">
+                        <div class="reviews-list" id="reviews-list">
+                            <!-- Dynamic review cards go here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 3: THE FLAVOR PAIRING MATRIX -->
+        <section id="page-matrix" class="page-view container">
+            <div class="section-header">
+                <span class="section-subtitle">THE ORBIT OF FLAVORS</span>
+                <h2 class="section-title">風味搭配矩陣</h2>
+            </div>
+            
+            <!-- Main ingredient selection tabs -->
+            <div class="matrix-ingredient-selector" id="matrix-selector">
+                <div class="selector-pill active" data-ing="鮭魚">鮭魚 (Salmon)</div>
+                <div class="selector-pill" data-ing="牛肉">牛肉 (Beef)</div>
+                <div class="selector-pill" data-ing="豆腐">豆腐 (Tofu)</div>
+                <div class="selector-pill" data-ing="酪梨">酪梨 (Avocado)</div>
+            </div>
+            
+            <div class="matrix-container">
+                <!-- Interactive Node Canvas Area -->
+                <div class="matrix-canvas-wrapper glass" id="matrix-canvas">
+                    <!-- Orbit Rings -->
+                    <div class="orbit-ring orbit-inner"></div>
+                    <div class="orbit-ring orbit-outer"></div>
+                    
+                    <!-- Center Core Hub Node -->
+                    <div class="matrix-hub" id="matrix-hub-node">
+                        <img src="" id="matrix-hub-img" alt="Center Ingredient">
+                        <span id="matrix-hub-name">鮭魚</span>
+                    </div>
+                    
+                    <!-- Satellite Orbit Nodes (Hydrated by JS) -->
+                    <div id="matrix-satellites"></div>
+                </div>
+                
+                <!-- Side Panel displaying interaction detail -->
+                <div class="matrix-panel glass" id="matrix-pairing-panel">
+                    <div class="matrix-panel-top">
+                        <h3 class="matrix-pairing-title">風味協奏：<span id="pairing-node-name">蒔蘿</span></h3>
+                        <p class="matrix-pairing-desc" id="pairing-node-desc">
+                            蒔蘿的清新香草香氣與鮭魚的油脂感相得益彰，能夠完美中和海鮮的腥味，並在口中散發出微甜而輕盈的草本風味，是北歐料理中最經典的魚類搭配。
+                        </p>
+                        
+                        <h4 class="matrix-suggested-title">主廚推薦關聯食譜</h4>
+                        <div class="matrix-recipe-list" id="pairing-recipes">
+                            <!-- Suggested recipe list item (Hydrated by JS) -->
+                        </div>
+                    </div>
+                    
+                    <div class="matrix-panel-bottom" style="margin-top: 1.5rem;">
+                        <button class="btn btn-primary" id="matrix-cook-btn" style="width: 100%;">前往烹飪</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: WEEKLY MEAL PLANNER -->
+        <section id="page-planner" class="page-view container">
+            <div class="section-header">
+                <span class="section-subtitle">YOUR WEEKLY DIET PLAN</span>
+                <h2 class="section-title">每週食曆規劃</h2>
+            </div>
+            
+            <div class="planner-layout">
+                <!-- 7 days planner -->
+                <div class="planner-grid glass" style="padding: 2rem;">
+                    <div class="planner-day-row" data-day="Mon">
+                        <div class="day-label">週一 Mon</div>
+                        <div class="day-recipe-dropzone" id="planner-Mon">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+                    
+                    <div class="planner-day-row" data-day="Tue">
+                        <div class="day-label">週二 Tue</div>
+                        <div class="day-recipe-dropzone" id="planner-Tue">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-day-row" data-day="Wed">
+                        <div class="day-label">週三 Wed</div>
+                        <div class="day-recipe-dropzone" id="planner-Wed">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-day-row" data-day="Thu">
+                        <div class="day-label">週四 Thu</div>
+                        <div class="day-recipe-dropzone" id="planner-Thu">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-day-row" data-day="Fri">
+                        <div class="day-label">週五 Fri</div>
+                        <div class="day-recipe-dropzone" id="planner-Fri">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-day-row" data-day="Sat">
+                        <div class="day-label">週六 Sat</div>
+                        <div class="day-recipe-dropzone" id="planner-Sat">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-day-row" data-day="Sun">
+                        <div class="day-label">週日 Sun</div>
+                        <div class="day-recipe-dropzone" id="planner-Sun">
+                            <span class="dropzone-empty-text">點擊食譜中的「加入食曆」來規劃</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dynamic consolidated shopping list -->
+                <div class="shopping-list-panel glass">
+                    <div class="shopping-list-header">
+                        <h3>自動採購單 (量化清單)</h3>
+                        <span class="shopping-count-badge" id="shopping-item-count">0 項待採購</span>
+                    </div>
+                    
+                    <div class="shopping-list-categories" id="shopping-list-categories">
+                        <!-- Loaded dynamically by category -->
+                        <div class="shopping-empty-state" id="shopping-empty">
+                            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                            <p>尚無規劃任何餐食。在左側規劃每日食譜後，系統將自動分析並合併產生所有食材的採購單。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================
+         GUIDED COOK MODE MODAL OVERLAY (DYNAMIC VIEW)
+         ========================================== -->
+    <div class="guided-modal" id="guided-cooking-modal">
+        <div class="guided-card glass">
+            <div class="guided-header">
+                <div class="guided-header-left">
+                    <h3 id="guided-recipe-title">香煎奢華蒔蘿鮭魚</h3>
+                    <span>引導式烹飪模式</span>
+                </div>
+                <button class="btn-icon" id="guided-close-btn" aria-label="關閉引導模式">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="guided-body">
+                <!-- Step Explanation -->
+                <div class="step-viewer-panel">
+                    <span class="step-badge" id="guided-step-badge">步驟 1 / 4</span>
+                    <h4 class="step-title-big" id="guided-step-title">處理食材與醃製</h4>
+                    <p class="step-desc-big" id="guided-step-desc">
+                        將鮭魚用紙巾壓乾，撒上適量海鹽與黑胡椒醃製5分鐘。同時洗淨新鮮蒔蘿並切成碎末備用。
+                    </p>
+                </div>
+                
+                <!-- Timer circle panel -->
+                <div class="timer-panel" id="guided-timer-panel">
+                    <div class="timer-svg-box">
+                        <!-- Steam lines -->
+                        <div class="steaming-container" id="timer-steam">
+                            <div class="steam-particle"></div>
+                            <div class="steam-particle"></div>
+                            <div class="steam-particle"></div>
+                            <div class="steam-particle"></div>
+                        </div>
+                        
+                        <svg viewBox="0 0 220 220">
+                            <defs>
+                                <linearGradient id="timer-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--accent-gold)" />
+                                    <stop offset="100%" stop-color="var(--accent-orange)" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="timer-circle-bg" cx="110" cy="110" r="100" />
+                            <circle class="timer-circle-fg" id="timer-circle-progress" cx="110" cy="110" r="100" />
+                        </svg>
+                        
+                        <div class="timer-text" id="timer-display">05:00</div>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button class="btn btn-primary" id="timer-start-btn">開始計時</button>
+                        <button class="btn btn-secondary" id="timer-reset-btn">重設</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="guided-footer">
+                <button class="btn btn-secondary" id="guided-prev-btn">上一步</button>
+                <button class="btn btn-primary" id="guided-next-btn">下一步</button>
+            </div>
+            
+            <!-- Step loading indicator bar -->
+            <div class="guided-progress-bar-container">
+                <div class="guided-progress-bar-fill" id="guided-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CONTACT US MODAL OVERLAY (DYNAMIC VIEW)
+         ========================================== -->
+    <div class="guided-modal" id="contact-modal">
+        <div class="custom-modal-card glass">
+            <div class="guided-header">
+                <div class="guided-header-left">
+                    <h3>線上聯絡我們</h3>
+                    <span>GET IN TOUCH WITH US</span>
+                </div>
+                <button class="btn-icon modal-close-btn" data-modal="contact-modal" aria-label="關閉聯絡我們">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="custom-modal-body">
+                <div class="contact-layout" id="contact-content-area">
+                    <!-- Left: Brand info -->
+                    <div class="contact-info-card">
+                        <div class="contact-info-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <div class="contact-info-text">
+                                <h6>尊榮會館地址</h6>
+                                <p>台北市大安區敦化南路二段 88 號 18 樓</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            <div class="contact-info-text">
+                                <h6>客服專線</h6>
+                                <p>0800-888-999 (09:00 - 21:00)</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            <div class="contact-info-text">
+                                <h6>電子信箱</h6>
+                                <p>service@gourmethaven.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-gold)"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm3.3 14.88L11 12.43V7h1.5v4.88l3.7 2.2-.71 1.8z"/></svg>
+                            <div class="contact-info-text">
+                                <h6>營業時間</h6>
+                                <p>週一至週日 11:30 - 22:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Form -->
+                    <form class="contact-form" id="contact-form" onsubmit="event.preventDefault();">
+                        <div class="form-group">
+                            <label for="contact-name">貴賓姓名 *</label>
+                            <input type="text" id="contact-name" placeholder="請輸入您的姓名..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">電子信箱 *</label>
+                            <input type="email" id="contact-email" placeholder="email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone">聯絡電話</label>
+                            <input type="tel" id="contact-phone" placeholder="0912-345-678">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">諮詢主題 *</label>
+                            <select id="contact-subject" required>
+                                <option value="general">一般諮詢與建議</option>
+                                <option value="vip">VIP 會籍申請諮詢</option>
+                                <option value="catering">私廚外宴預約</option>
+                                <option value="commercial">商務聯名合作</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">留言內容 *</label>
+                            <textarea id="contact-message" placeholder="請詳細描述您的需求或建議..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="contact-submit-btn" style="margin-top: 0.5rem; width: 100%;">送出留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         VIP PREMIUM SERVICES MODAL OVERLAY
+         ========================================== -->
+    <div class="guided-modal" id="vip-modal">
+        <div class="custom-modal-card glass" style="max-width: 900px;">
+            <div class="guided-header">
+                <div class="guided-header-left">
+                    <h3>VIP 尊榮服務</h3>
+                    <span>EXCLUSIVE PRIVILEGES</span>
+                </div>
+                <button class="btn-icon modal-close-btn" data-modal="vip-modal" aria-label="關閉VIP服務">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="custom-modal-body" id="vip-body-content">
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 0.95rem;">
+                    加入「食光之境」頂奢會籍，與米其林星級主廚深度合作，解鎖超越味覺界限的私人餐飲藝術與全球罕見食材認購權。
+                </p>
+                
+                <div class="vip-grid">
+                    <!-- Perk 1 -->
+                    <div class="vip-perk-card">
+                        <div class="vip-icon-box">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="var(--accent-gold)"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
+                        </div>
+                        <h4>私人高定主廚宴席</h4>
+                        <p>由頂級星級主廚親自登門，為您的私人宴會或商務晚宴客製化專屬菜單與侍酒搭配。</p>
+                    </div>
+                    <!-- Perk 2 -->
+                    <div class="vip-perk-card">
+                        <div class="vip-icon-box">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="var(--accent-gold)"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        </div>
+                        <h4>珍稀食材優先認購</h4>
+                        <p>直連全球有機莊園與野生捕撈，優先認購頂級白松露、A5 和牛與限量熟成魚子醬。</p>
+                    </div>
+                    <!-- Perk 3 -->
+                    <div class="vip-perk-card">
+                        <div class="vip-icon-box">
+                            <svg viewBox="0 0 24 24" width="30" height="30" fill="var(--accent-gold)"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.89 12.57l6.11 3.33 6.11-3.33v3.31L12 19.22l-6.11-3.34v-3.31z"/></svg>
+                        </div>
+                        <h4>奢華料理藝術大師班</h4>
+                        <p>專屬小班制，近距離向主廚學習現代分子料理技術與極致擺盤美學。</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button class="btn btn-primary" id="vip-apply-btn" style="padding: 0.8rem 2.5rem;">立即申請 VIP 貴賓席位</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CHEF COLLABORATION MODAL OVERLAY
+         ========================================== -->
+    <div class="guided-modal" id="chef-modal">
+        <div class="custom-modal-card glass">
+            <div class="guided-header">
+                <div class="guided-header-left">
+                    <h3>主廚聯名提案</h3>
+                    <span>CHEF COLLABORATION PROPOSAL</span>
+                </div>
+                <button class="btn-icon modal-close-btn" data-modal="chef-modal" aria-label="關閉主廚聯名">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="custom-modal-body" id="chef-body-content">
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    誠邀全球具備匠人心態的料理藝術家與餐廳主廚，與「食光之境」共同策劃限時主題餐宴、聯名食譜或食材風味配對企劃。請填寫您的合作意向。
+                </p>
+                
+                <form class="contact-form" id="chef-form" onsubmit="event.preventDefault();">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="chef-name">主廚姓名/品牌名稱 *</label>
+                            <input type="text" id="chef-name" placeholder="您的尊名或餐廳品牌..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chef-title">專業職稱/經歷 *</label>
+                            <input type="text" id="chef-title" placeholder="行政總廚、私廚創辦人..." required>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div class="form-group">
+                            <label for="chef-email">聯絡信箱 *</label>
+                            <input type="email" id="chef-email" placeholder="chef@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chef-style">料理流派 / 擅長菜系 *</label>
+                            <input type="text" id="chef-style" placeholder="法式現代、日式割烹、融合料理等..." required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="chef-proposal">聯名企劃意向提案 *</label>
+                        <textarea id="chef-proposal" placeholder="請簡單闡述您的聯名合作構想（如：希望發表的聯名食譜、食材企劃或晚宴提案）..." required style="min-height: 100px; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="chef-submit-btn" style="margin-top: 1rem; width: 100%;">送出聯名提案</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PRIVACY AND TERMS MODAL OVERLAY
+         ========================================== -->
+    <div class="guided-modal" id="privacy-modal">
+        <div class="custom-modal-card glass" style="max-width: 700px;">
+            <div class="guided-header">
+                <div class="guided-header-left">
+                    <h3>隱私與使用條款</h3>
+                    <span>PRIVACY & TERMS</span>
+                </div>
+                <button class="btn-icon modal-close-btn" data-modal="privacy-modal" aria-label="關閉隱私權條款">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="custom-modal-body">
+                <div class="tab-container">
+                    <button class="tab-btn active" data-tab="privacy-policy">隱私權政策</button>
+                    <button class="tab-btn" data-tab="terms-of-service">服務與使用條款</button>
+                </div>
+                
+                <div class="tab-content active" id="privacy-policy">
+                    <div class="scroll-text-box">
+                        <h6>1. 資訊收集與使用範圍</h6>
+                        <p>食光之境（以下簡稱「本網站」）承諾保護您的隱私。當您填寫聯絡表單、申請 VIP 會籍或發布饕客食評時，我們會收集您主動提供之姓名、電話、電子郵件等個人識別資料。這些資料僅用於解答您的諮詢、優化您在本網站的專屬體驗及發送相關尊榮活動資訊。</p>
+                        
+                        <h6>2. 資訊保護與安全性</h6>
+                        <p>本網站採用業界標準之加密技術與伺服器防護措施，確保您的個人資料在傳輸與儲存時不受非法讀取或洩漏。未經您的同意，本網站絕不會將您的個人資訊販售、交換或洩漏給任何第三方機構，除非法律有明確規定。</p>
+                        
+                        <h6>3. Cookie 技術之使用</h6>
+                        <p>為了提供您更為個人化的流暢互動（例如保存您的每週餐食曆規劃及深淺色偏好），本網站會在您的瀏覽器中寫入並讀取 Cookie。若您不希望使用 Cookie，可在瀏覽器設定中停用，但這可能導致本網站部分個性化功能無法正常運作。</p>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="terms-of-service">
+                    <div class="scroll-text-box">
+                        <h6>1. 服務條款接受度</h6>
+                        <p>歡迎瀏覽食光之境！當您存取或使用本網站提供之各項服務（包括食譜瀏覽、風味搭配矩陣、每週食曆規劃等），即代表您已閱讀、理解並同意受本服務條款所有條文之約束。若您不同意，請立即停止使用本網站服務。</p>
+                        
+                        <h6>2. 智慧財產權聲明</h6>
+                        <p>本網站上所呈現之所有原創內容（包含但不限於食譜配方、風味矩陣設計、精美圖片、文字敘述及 3D 烹飪計時器互動邏輯），其智慧財產權均屬「食光之境團隊」所有。未經明確書面授權，禁止任何形式之複製、改作、轉載或商業性營利使用。</p>
+                        
+                        <h6>3. 使用者免責聲明</h6>
+                        <p>本網站提供之烹飪時間、溫度與食材配對建議僅供參考。實際烹飪成果可能因廚房設備、食材新鮮度及個人操作手法而有所差異。使用者應本著食品安全原則自行判斷食材熟度，本網站不對任何因烹飪不當所導致之意外承擔連帶責任。</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: right; margin-top: 1.5rem;">
+                    <button class="btn btn-primary modal-close-btn" data-modal="privacy-modal">確認並同意</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         FOOTER STYLING
+         ========================================== -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15.5h-2v-2h2v2zm0-4.5h-2V7h2v6z"/>
+                    </svg>
+                    <span>食光之境</span>
+                </a>
+                <p>食光之境是一款融合極致奢華美學與數位互動技術的當代美食指南。我們重新定義烹飪過程，讓美味成為生活的藝術品。</p>
+            </div>
+            
+            <div class="footer-col">
+                <h5>特色單元</h5>
+                <ul class="footer-links">
+                    <li><a href="#page-recipes" class="footer-nav-link" data-target="recipes">精選市集</a></li>
+                    <li><a href="#page-matrix" class="footer-nav-link" data-target="matrix">食材風味矩陣</a></li>
+                    <li><a href="#page-planner" class="footer-nav-link" data-target="planner">每週餐食計劃</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h5>聯繫我們</h5>
+                <ul class="footer-links">
+                    <li><a href="#" id="footer-contact-link">線上聯絡我們</a></li>
+                    <li><a href="#" id="footer-vip-link">VIP 尊榮服務</a></li>
+                    <li><a href="#" id="footer-chef-link">主廚聯名提案</a></li>
+                    <li><a href="#" id="footer-privacy-link">隱私與使用條款</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <span>© 2026 Gourmet Haven | 食光之境. All rights reserved.</span>
+            <span>Made with Premium Taste</span>
+        </div>
+    </footer>
+
+    <!-- Core Logic Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
