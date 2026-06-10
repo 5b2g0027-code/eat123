@@ -183,6 +183,13 @@ const State = {
     // Custom Reviews added in session
     customReviews: {}, // recipeId -> Array of review objects
 
+    // Firebase favorites: 從資料庫預先載入的最愛食譜 ID / 資料
+    favoriteRecipeIds: new Set(),
+    favoriteRecipesData: new Map(),
+
+    // Firebase viewed recipes: 使用者點開過的食譜資料
+    viewedRecipesData: new Map(),
+
     // Scroll restore: 從詳情頁回食譜市集時，回到原本列表位置
     recipeListScrollY: 0
 };
@@ -221,25 +228,41 @@ function initApp() {
     // TheMealDB 大量食譜載入
     loadTheMealDBRecipes().then(() => {
         restoreSavedRoute(true);
+        updateAllFavoriteButtons();
     });
+
+    // Firebase 登入與帳號同步：延後執行，避免 Firebase 錯誤影響原本食譜顯示
+    setTimeout(() => {
+        try {
+            setupFirebaseAuthSystem();
+        } catch (error) {
+            console.error("Firebase 登入系統載入失敗，但不影響原本食譜功能：", error);
+        }
+    }, 0);
 }
 
 // 4. THEME CONTROL
 function setupThemeToggle() {
-    const toggleBtn = document.getElementById("theme-toggle");
+    // 原本右上角是深淺色切換，依需求改成「我的最愛」按鈕
+    const favoriteBtn = document.getElementById("theme-toggle");
     const themeIcon = document.getElementById("theme-icon");
-    
-    toggleBtn.addEventListener("click", () => {
-        const nextTheme = State.currentTheme === "dark" ? "light" : "dark";
-        State.currentTheme = nextTheme;
-        document.body.setAttribute("data-theme", nextTheme);
-        
-        // Update SVG Moon/Sun Path
-        if (nextTheme === "light") {
-            themeIcon.innerHTML = `<path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>`;
-        } else {
-            themeIcon.innerHTML = `<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>`;
-        }
+    if (!favoriteBtn) return;
+
+    favoriteBtn.setAttribute("aria-label", "開啟我的最愛");
+    favoriteBtn.setAttribute("title", "我的最愛");
+    favoriteBtn.classList.add("my-favorites-top-btn");
+
+    if (themeIcon) {
+        themeIcon.outerHTML = `<span class="my-favorites-top-btn-text">我的最愛</span>`;
+    } else {
+        favoriteBtn.textContent = "我的最愛";
+    }
+
+    injectFavoritesFeatureStyle();
+
+    favoriteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openFavoritesModal();
     });
 }
 
@@ -481,6 +504,9 @@ function renderRecipeGrid(filterIng = "all", filterDiff = "all", filterDiet = "a
         card.innerHTML = `
             <div class="recipe-img-container">
                 <img src="${recipe.image}" alt="${recipe.title}">
+                <button class="favorite-recipe-btn ${isRecipeFavorite(recipe.id) ? "active" : ""}" id="btn-favorite-${recipe.id}" type="button" aria-label="切換最愛食譜" title="加入 / 移除最愛">
+                    ${isRecipeFavorite(recipe.id) ? "♥" : "♡"}
+                </button>
                 <div class="recipe-difficulty">${recipe.difficulty}</div>
             </div>
             <div class="recipe-info">
@@ -509,6 +535,14 @@ function renderRecipeGrid(filterIng = "all", filterDiff = "all", filterDiet = "a
         document.getElementById(`btn-view-${recipe.id}`).addEventListener("click", () => {
             showRecipeDetail(recipe.id);
         });
+
+        const favoriteBtn = document.getElementById(`btn-favorite-${recipe.id}`);
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                toggleFirebaseFavoriteRecipe(recipe);
+            });
+        }
         // Click on whole card top also navigates to details
         card.querySelector(".recipe-img-container").addEventListener("click", () => {
             showRecipeDetail(recipe.id);
@@ -646,6 +680,9 @@ async function showRecipeDetail(recipeId, options = {}) {
     // Trigger details render
     renderRecipeDetailContent();
     renderReviewsList();
+
+    // Firebase 新增：只要使用者點開食譜詳情，就把該食譜資料同步到 Firebase
+    saveFirebaseViewedRecipe(recipeId);
 }
 
 function renderRecipeDetailLoading(title) {
@@ -833,6 +870,10 @@ function renderRecipeDetailContent() {
     document.getElementById("btn-add-planner").addEventListener("click", () => {
         promptAddToPlanner();
     });
+
+    // Firebase 新增：在原本詳情頁按鈕旁邊補「最愛」與「標記完成」按鈕，不改原本版面
+    injectFirebaseFavoriteDetailButton(recipe);
+    injectFirebaseCompletedRecipeButton(recipe);
 }
 
 function calculateRadarPoints(flavors) {
@@ -908,6 +949,9 @@ function promptAddToPlanner() {
                 recipeId: recipe.id,
                 servings: State.selectedServing
             };
+
+            // Firebase 新增：同步食曆規劃到目前登入帳號
+            saveFirebaseMealPlan();
             
             // Clean up checked items since plan changed, recalculating grocery list is needed
             State.checkedShoppingItems.clear();
@@ -1006,6 +1050,7 @@ function renderMealPlanner() {
             document.getElementById(`remove-plan-${day}`).addEventListener("click", (e) => {
                 e.stopPropagation();
                 State.weeklyPlan[day] = null;
+                saveFirebaseMealPlan(); // Firebase 新增：刪除後同步食曆
                 renderMealPlanner();
             });
         } else {
@@ -2463,5 +2508,946 @@ function writeJsonCache(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
         console.warn("localStorage 快取失敗：", error);
+    }
+}
+
+
+/* ==========================================================================
+   FIREBASE LOGIN + USER DATA SYNC（新增功能）
+   只新增登入系統與帳號資料儲存，不改動原本食譜功能
+   ========================================================================== */
+
+// ⚠️ 請把這段換成 Firebase Console 給你的設定
+// Firebase Console → 專案設定 → 一般 → 你的應用程式 → SDK 設定與配置
+const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAxgwT8VXGJnfHUo9t-Zp1f6iMkUQO4eCg",
+    authDomain: "eat112.firebaseapp.com",
+    projectId: "eat112",
+    storageBucket: "eat112.firebasestorage.app",
+    messagingSenderId: "903083884872",
+    appId: "1:903083884872:web:f3deab0a9e69f37630f37d",
+    measurementId: "G-WKMBHK0KM8"
+};
+
+const FirebaseAccount = {
+    ready: false,
+    app: null,
+    auth: null,
+    db: null,
+    user: null,
+    api: null
+};
+
+async function setupFirebaseAuthSystem() {
+    injectFirebaseAuthPanel();
+    injectFirebaseAuthStyle();
+
+    if (!isFirebaseConfigFilled()) {
+        updateFirebaseLoginStatus("請先在 app.js 貼上 Firebase 設定", false);
+        console.warn("Firebase 尚未設定：請先填入 FIREBASE_CONFIG。登入與雲端儲存功能會暫停。");
+        return;
+    }
+
+    try {
+        const [appModule, authModule, firestoreModule] = await Promise.all([
+            import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+            import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"),
+            import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js")
+        ]);
+
+        FirebaseAccount.app = appModule.initializeApp(FIREBASE_CONFIG);
+        FirebaseAccount.auth = authModule.getAuth(FirebaseAccount.app);
+        FirebaseAccount.db = firestoreModule.getFirestore(FirebaseAccount.app);
+        FirebaseAccount.api = {
+            createUserWithEmailAndPassword: authModule.createUserWithEmailAndPassword,
+            signInWithEmailAndPassword: authModule.signInWithEmailAndPassword,
+            signOut: authModule.signOut,
+            onAuthStateChanged: authModule.onAuthStateChanged,
+            doc: firestoreModule.doc,
+            getDoc: firestoreModule.getDoc,
+            setDoc: firestoreModule.setDoc,
+            arrayUnion: firestoreModule.arrayUnion,
+            serverTimestamp: firestoreModule.serverTimestamp
+        };
+        FirebaseAccount.ready = true;
+
+        bindFirebaseAuthEvents();
+        FirebaseAccount.api.onAuthStateChanged(FirebaseAccount.auth, async (user) => {
+            FirebaseAccount.user = user || null;
+            if (user) {
+                updateFirebaseLoginStatus(`已登入：${user.displayName || getUsernameFromFirebaseUser(user)}`, true);
+                closeFirebaseAuthPanel();
+
+                try {
+                    await ensureFirebaseUserDocument();
+                    await loadFirebaseUserData();
+                } catch (firestoreError) {
+                    console.warn("已登入，但 Firebase Firestore 權限或讀寫失敗：", firestoreError);
+                    showToast("已登入，但雲端資料權限尚未設定");
+                }
+            } else {
+                updateFirebaseLoginStatus("目前尚未登入", false);
+            }
+        });
+    } catch (error) {
+        console.error("Firebase 初始化失敗：", error);
+        updateFirebaseLoginStatus("Firebase 初始化失敗，請看 Console", false);
+    }
+}
+
+function isFirebaseConfigFilled() {
+    return FIREBASE_CONFIG
+        && FIREBASE_CONFIG.apiKey
+        && FIREBASE_CONFIG.projectId
+        && !String(FIREBASE_CONFIG.apiKey).includes("請貼上")
+        && !String(FIREBASE_CONFIG.projectId).includes("請貼上");
+}
+
+function injectFirebaseAuthPanel() {
+    if (document.getElementById("firebase-auth-panel")) return;
+
+    const panel = document.createElement("section");
+    panel.id = "firebase-auth-panel";
+    panel.className = "firebase-auth-panel glass";
+    panel.innerHTML = `
+        <button id="firebase-auth-close-btn" type="button" class="firebase-auth-close-btn" aria-label="關閉登入視窗">×</button>
+        <div class="firebase-auth-title">會員帳號</div>
+        <div id="firebase-login-status" class="firebase-login-status">Firebase 載入中...</div>
+        <input id="firebase-username" class="firebase-auth-input" type="text" placeholder="使用者名稱" autocomplete="username">
+        <input id="firebase-password" class="firebase-auth-input" type="password" placeholder="密碼至少 6 位" autocomplete="current-password">
+        <div class="firebase-auth-buttons">
+            <button id="firebase-register-btn" type="button" class="btn btn-secondary">註冊</button>
+            <button id="firebase-login-btn" type="button" class="btn btn-primary">登入</button>
+            <button id="firebase-logout-btn" type="button" class="btn btn-secondary" style="display:none;">登出</button>
+        </div>
+        <div class="firebase-auth-note">使用者名稱登入後，食曆規劃與做過的食譜會存到你的帳號。</div>
+    `;
+
+    // 只新增一個登入浮動面板，不改原本 HTML 結構
+    document.body.appendChild(panel);
+}
+
+function injectFirebaseAuthStyle() {
+    if (document.getElementById("firebase-auth-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "firebase-auth-style";
+    style.textContent = `
+        .firebase-auth-panel {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 9999;
+            width: min(320px, calc(100vw - 36px));
+            padding: 16px;
+            border-radius: 18px;
+            background: var(--bg-glass, rgba(255,255,255,0.88));
+            border: 1px solid var(--border-glass, rgba(255,255,255,0.35));
+            box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+            backdrop-filter: blur(14px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .firebase-auth-panel.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px) scale(0.98);
+        }
+        .firebase-auth-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.08);
+            color: var(--text-primary, #222);
+            font-size: 20px;
+            line-height: 26px;
+            cursor: pointer;
+            padding: 0;
+        }
+        .firebase-auth-close-btn:hover {
+            background: rgba(0,0,0,0.16);
+        }
+        .firebase-auth-title {
+            font-family: var(--font-heading, inherit);
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary, #222);
+        }
+        .firebase-login-status {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            color: var(--text-secondary, #666);
+        }
+        .firebase-login-status.is-login {
+            color: #15803d;
+            font-weight: 700;
+        }
+        .firebase-auth-input {
+            width: 100%;
+            margin-bottom: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-glass, #ddd);
+            background: var(--input-bg, rgba(255,255,255,0.85));
+            color: var(--text-primary, #222);
+            outline: none;
+        }
+        .firebase-auth-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .firebase-auth-buttons .btn {
+            min-height: 38px;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+        }
+        .firebase-auth-note {
+            margin-top: 10px;
+            font-size: 0.78rem;
+            color: var(--text-muted, #888);
+            line-height: 1.5;
+        }
+        .favorite-recipe-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 5;
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.46);
+            color: #fff;
+            font-size: 1.35rem;
+            line-height: 1;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+        }
+        .favorite-recipe-btn:hover {
+            transform: scale(1.08);
+            background: rgba(0, 0, 0, 0.62);
+        }
+        .favorite-recipe-btn.active {
+            background: rgba(220, 38, 38, 0.92);
+            color: #fff;
+        }
+        #btn-detail-favorite.active {
+            background: #dc2626;
+            color: #fff;
+        }
+        @media (max-width: 640px) {
+            .firebase-auth-panel {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                width: auto;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function bindFirebaseAuthEvents() {
+    const registerBtn = document.getElementById("firebase-register-btn");
+    const loginBtn = document.getElementById("firebase-login-btn");
+    const logoutBtn = document.getElementById("firebase-logout-btn");
+    const closeBtn = document.getElementById("firebase-auth-close-btn");
+
+    registerBtn?.addEventListener("click", firebaseRegister);
+    loginBtn?.addEventListener("click", firebaseLogin);
+    logoutBtn?.addEventListener("click", firebaseLogout);
+    closeBtn?.addEventListener("click", closeFirebaseAuthPanel);
+}
+
+function closeFirebaseAuthPanel() {
+    const panel = document.getElementById("firebase-auth-panel");
+    if (!panel) return;
+    panel.classList.add("is-hidden");
+}
+
+function openFirebaseAuthPanel() {
+    const panel = document.getElementById("firebase-auth-panel");
+    if (!panel) return;
+    panel.classList.remove("is-hidden");
+}
+
+async function firebaseRegister() {
+    if (!FirebaseAccount.ready) return alert("Firebase 尚未初始化完成");
+
+    const username = getFirebaseUsernameInput();
+    const password = document.getElementById("firebase-password")?.value.trim();
+
+    if (!username || !password) return alert("請輸入使用者名稱和密碼");
+    if (!isValidUsername(username)) return alert("使用者名稱只能使用英文、數字、底線，長度 3～20 個字");
+    if (password.length < 6) return alert("密碼至少需要 6 位數");
+
+    try {
+        const loginEmail = usernameToFirebaseEmail(username);
+        const result = await FirebaseAccount.api.createUserWithEmailAndPassword(FirebaseAccount.auth, loginEmail, password);
+
+        // Auth 註冊成功就先視為成功：先提示、先關閉視窗
+        showToast("註冊成功，已登入");
+        closeFirebaseAuthPanel();
+
+        // Firestore 建立使用者資料可能會因 Rules 尚未設定而 permission-denied。
+        // 這裡改成不阻擋註冊，只提醒需要設定 Firestore Rules。
+        try {
+            const { doc, setDoc, serverTimestamp } = FirebaseAccount.api;
+            await setDoc(doc(FirebaseAccount.db, "users", result.user.uid), {
+                username,
+                loginType: "username",
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            }, { merge: true });
+        } catch (firestoreError) {
+            console.warn("註冊成功，但 Firestore 使用者資料建立失敗：", firestoreError);
+            showToast("註冊成功，但雲端資料權限尚未設定");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("註冊失敗：" + getFirebaseAuthErrorText(error.code));
+    }
+}
+
+async function firebaseLogin() {
+    if (!FirebaseAccount.ready) return alert("Firebase 尚未初始化完成");
+
+    const username = getFirebaseUsernameInput();
+    const password = document.getElementById("firebase-password")?.value.trim();
+
+    if (!username || !password) return alert("請輸入使用者名稱和密碼");
+    if (!isValidUsername(username)) return alert("使用者名稱只能使用英文、數字、底線，長度 3～20 個字");
+
+    try {
+        const loginEmail = usernameToFirebaseEmail(username);
+        await FirebaseAccount.api.signInWithEmailAndPassword(FirebaseAccount.auth, loginEmail, password);
+        showToast("登入成功");
+        closeFirebaseAuthPanel();
+    } catch (error) {
+        console.error(error);
+        alert("登入失敗：" + getFirebaseAuthErrorText(error.code));
+    }
+}
+
+async function firebaseLogout() {
+    if (!FirebaseAccount.ready) return;
+
+    try {
+        await FirebaseAccount.api.signOut(FirebaseAccount.auth);
+        showToast("已登出");
+        openFirebaseAuthPanel();
+    } catch (error) {
+        console.error(error);
+        alert("登出失敗：" + error.message);
+    }
+}
+
+function updateFirebaseLoginStatus(text, isLogin) {
+    const status = document.getElementById("firebase-login-status");
+    const loginBtn = document.getElementById("firebase-login-btn");
+    const registerBtn = document.getElementById("firebase-register-btn");
+    const logoutBtn = document.getElementById("firebase-logout-btn");
+
+    if (status) {
+        status.textContent = text;
+        status.classList.toggle("is-login", !!isLogin);
+    }
+
+    if (loginBtn) loginBtn.style.display = isLogin ? "none" : "";
+    if (registerBtn) registerBtn.style.display = isLogin ? "none" : "";
+    if (logoutBtn) logoutBtn.style.display = isLogin ? "" : "none";
+}
+
+async function ensureFirebaseUserDocument() {
+    if (!FirebaseAccount.user) return;
+
+    try {
+        const { doc, setDoc, serverTimestamp } = FirebaseAccount.api;
+        const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+
+        await setDoc(userRef, {
+            username: getUsernameFromFirebaseUser(FirebaseAccount.user),
+            loginType: "username",
+            updatedAt: serverTimestamp()
+        }, { merge: true });
+    } catch (error) {
+        console.warn("建立 / 更新使用者文件失敗，通常是 Firestore Rules 尚未允許登入者寫入：", error);
+        throw error;
+    }
+}
+
+async function loadFirebaseUserData() {
+    if (!FirebaseAccount.user) return;
+
+    try {
+        const { doc, getDoc } = FirebaseAccount.api;
+        const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+        const snap = await getDoc(userRef);
+
+        const data = snap.exists() ? snap.data() : {};
+
+        // 登入後，把 Firebase 裡的食曆載回原本 State.weeklyPlan
+        if (data.weeklyPlan && typeof data.weeklyPlan === "object") {
+            State.weeklyPlan = {
+                Mon: null,
+                Tue: null,
+                Wed: null,
+                Thu: null,
+                Fri: null,
+                Sat: null,
+                Sun: null,
+                ...data.weeklyPlan
+            };
+            if (typeof renderMealPlanner === "function") renderMealPlanner();
+        }
+
+        // 登入後，把 Firebase 裡的最愛食譜預先載入，並把畫面上的愛心按鈕標成已收藏
+        const favoriteItems = data.favoriteRecipes || data.favorites || [];
+        State.favoriteRecipeIds = normalizeFirebaseFavoriteIds(favoriteItems);
+        State.favoriteRecipesData = normalizeFirebaseRecipeDataMap(favoriteItems);
+        updateAllFavoriteButtons();
+
+        // 登入後，也把資料庫中曾經點開過的食譜預先載入到本機狀態
+        State.viewedRecipesData = normalizeFirebaseRecipeDataMap(data.viewedRecipes || []);
+
+        // 如果使用者在登入前已點開過食譜，登入後補傳到 Firebase
+        if (State.viewedRecipesData.size > 0) {
+            saveFirebaseViewedRecipes({ silent: true });
+        }
+
+        showToast("已載入此帳號的食曆、最愛與瀏覽紀錄");
+    } catch (error) {
+        console.error("讀取 Firebase 使用者資料失敗：", error);
+    }
+}
+
+async function saveFirebaseMealPlan() {
+    if (!FirebaseAccount.ready || !FirebaseAccount.user) {
+        console.warn("尚未登入 Firebase，食曆只會保留在目前畫面，不會同步到帳號。");
+        return;
+    }
+
+    try {
+        const { doc, setDoc, serverTimestamp } = FirebaseAccount.api;
+        const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+
+        await setDoc(userRef, {
+            weeklyPlan: State.weeklyPlan,
+            updatedAt: serverTimestamp()
+        }, { merge: true });
+    } catch (error) {
+        console.error("儲存食曆到 Firebase 失敗：", error);
+        alert("食曆雲端儲存失敗：" + error.message);
+    }
+}
+
+function injectFirebaseCompletedRecipeButton(recipe) {
+    const plannerBtn = document.getElementById("btn-add-planner");
+    const actionRow = plannerBtn?.parentElement;
+
+    if (!actionRow || document.getElementById("btn-mark-completed")) return;
+
+    const doneBtn = document.createElement("button");
+    doneBtn.className = "btn btn-secondary";
+    doneBtn.id = "btn-mark-completed";
+    doneBtn.type = "button";
+    doneBtn.textContent = "標記完成";
+    doneBtn.addEventListener("click", () => saveFirebaseCompletedRecipe(recipe));
+
+    actionRow.appendChild(doneBtn);
+}
+
+
+function isRecipeFavorite(recipeId) {
+    return State.favoriteRecipeIds instanceof Set && State.favoriteRecipeIds.has(recipeId);
+}
+
+function normalizeFirebaseFavoriteIds(rawFavorites) {
+    const ids = new Set();
+
+    if (!Array.isArray(rawFavorites)) return ids;
+
+    rawFavorites.forEach(item => {
+        if (typeof item === "string") {
+            ids.add(item);
+        } else if (item && typeof item === "object") {
+            const id = item.recipeId || item.id;
+            if (id) ids.add(id);
+        }
+    });
+
+    return ids;
+}
+
+function getRecipeFavoritePayload(recipe) {
+    return {
+        recipeId: recipe.id,
+        title: recipe.title,
+        englishTitle: recipe.englishTitle || "",
+        image: recipe.image || "",
+        totalTime: recipe.totalTime || "",
+        difficulty: recipe.difficulty || "",
+        savedAt: new Date().toISOString()
+    };
+}
+
+async function toggleFirebaseFavoriteRecipe(recipe) {
+    if (!FirebaseAccount.ready) {
+        alert("Firebase 尚未初始化完成，請稍後再試");
+        return;
+    }
+
+    if (!FirebaseAccount.user) {
+        alert("請先登入，才能收藏最愛食譜");
+        openFirebaseAuthPanel();
+        return;
+    }
+
+    const wasFavorite = isRecipeFavorite(recipe.id);
+
+    if (wasFavorite) {
+        State.favoriteRecipeIds.delete(recipe.id);
+        State.favoriteRecipesData.delete(recipe.id);
+    } else {
+        State.favoriteRecipeIds.add(recipe.id);
+        State.favoriteRecipesData.set(recipe.id, getRecipeFirebasePayload(recipe, { savedAt: new Date().toISOString() }));
+    }
+
+    updateAllFavoriteButtons();
+
+    try {
+        await saveFirebaseFavoriteRecipes();
+        showToast(wasFavorite ? `已從最愛移除「${recipe.title}」` : `已加入最愛「${recipe.title}」`);
+    } catch (error) {
+        // 如果雲端儲存失敗，回復畫面狀態，避免使用者誤會已存成功
+        if (wasFavorite) {
+            State.favoriteRecipeIds.add(recipe.id);
+            State.favoriteRecipesData.set(recipe.id, getRecipeFirebasePayload(recipe, { savedAt: new Date().toISOString() }));
+        } else {
+            State.favoriteRecipeIds.delete(recipe.id);
+            State.favoriteRecipesData.delete(recipe.id);
+        }
+        updateAllFavoriteButtons();
+
+        console.error("儲存最愛食譜失敗：", error);
+        alert("儲存最愛食譜失敗：請確認 Firestore Rules 是否允許登入者寫入自己的 users/{uid}");
+    }
+}
+
+async function saveFirebaseFavoriteRecipes() {
+    if (!FirebaseAccount.ready || !FirebaseAccount.user) return;
+
+    const { doc, setDoc, serverTimestamp } = FirebaseAccount.api;
+    const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+
+    const favoriteRecipes = Array.from(State.favoriteRecipeIds)
+        .map(recipeId => {
+            const recipe = RECIPES.find(r => r.id === recipeId);
+            const saved = State.favoriteRecipesData?.get(recipeId);
+            return recipe
+                ? getRecipeFirebasePayload(recipe, { savedAt: saved?.savedAt || new Date().toISOString() })
+                : (saved || { recipeId, savedAt: new Date().toISOString() });
+        });
+
+    await setDoc(userRef, {
+        favoriteRecipes,
+        updatedAt: serverTimestamp()
+    }, { merge: true });
+}
+
+function updateAllFavoriteButtons() {
+    document.querySelectorAll(".favorite-recipe-btn").forEach(btn => {
+        const recipeId = btn.id.replace("btn-favorite-", "");
+        updateSingleFavoriteButton(btn, recipeId);
+    });
+
+    const detailBtn = document.getElementById("btn-detail-favorite");
+    if (detailBtn && State.selectedRecipeId) {
+        updateSingleFavoriteButton(detailBtn, State.selectedRecipeId, true);
+    }
+
+    if (document.getElementById("favorites-modal")?.classList.contains("active")) {
+        renderFavoritesList();
+    }
+}
+
+function updateSingleFavoriteButton(btn, recipeId, isDetailButton = false) {
+    const active = isRecipeFavorite(recipeId);
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+
+    if (isDetailButton) {
+        btn.textContent = active ? "♥ 已收藏" : "♡ 加入最愛";
+    } else {
+        btn.textContent = active ? "♥" : "♡";
+    }
+}
+
+function injectFirebaseFavoriteDetailButton(recipe) {
+    const plannerBtn = document.getElementById("btn-add-planner");
+    const actionRow = plannerBtn?.parentElement;
+
+    if (!actionRow || document.getElementById("btn-detail-favorite")) return;
+
+    const favoriteBtn = document.createElement("button");
+    favoriteBtn.className = `btn btn-secondary ${isRecipeFavorite(recipe.id) ? "active" : ""}`;
+    favoriteBtn.id = "btn-detail-favorite";
+    favoriteBtn.type = "button";
+    favoriteBtn.textContent = isRecipeFavorite(recipe.id) ? "♥ 已收藏" : "♡ 加入最愛";
+    favoriteBtn.addEventListener("click", () => toggleFirebaseFavoriteRecipe(recipe));
+
+    actionRow.appendChild(favoriteBtn);
+}
+
+
+function normalizeFirebaseRecipeDataMap(rawRecipes) {
+    const map = new Map();
+
+    if (!Array.isArray(rawRecipes)) return map;
+
+    rawRecipes.forEach(item => {
+        if (!item) return;
+        if (typeof item === "string") {
+            map.set(item, { recipeId: item });
+            return;
+        }
+        if (typeof item === "object") {
+            const id = item.recipeId || item.id;
+            if (id) map.set(id, item);
+        }
+    });
+
+    return map;
+}
+
+function getRecipeFirebasePayload(recipe, extra = {}) {
+    if (!recipe) return null;
+
+    return {
+        recipeId: recipe.id,
+        title: recipe.title || "",
+        englishTitle: recipe.englishTitle || "",
+        image: recipe.image || "",
+        description: recipe.description || "",
+        prepTime: recipe.prepTime || "",
+        cookTime: recipe.cookTime || "",
+        totalTime: recipe.totalTime || "",
+        difficulty: recipe.difficulty || "",
+        diet: recipe.diet || "",
+        servingDefault: recipe.servingDefault || 1,
+        ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : [],
+        steps: Array.isArray(recipe.steps) ? recipe.steps : [],
+        flavors: recipe.flavors || {},
+        ...extra
+    };
+}
+
+function injectFavoritesFeatureStyle() {
+    if (document.getElementById("favorites-feature-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "favorites-feature-style";
+    style.textContent = `
+        .my-favorites-top-btn {
+            width: auto !important;
+            min-width: 96px;
+            padding: 0 14px !important;
+            border-radius: 999px !important;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+        }
+        .my-favorites-top-btn-text {
+            font-size: 0.92rem;
+            white-space: nowrap;
+        }
+        .favorites-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(10px);
+        }
+        .favorites-modal.active {
+            display: flex;
+        }
+        .favorites-modal-card {
+            width: min(980px, 96vw);
+            max-height: 84vh;
+            overflow: auto;
+            border-radius: 24px;
+            padding: 24px;
+            background: var(--bg-glass, rgba(255,255,255,0.92));
+            border: 1px solid var(--border-glass, rgba(255,255,255,0.35));
+            box-shadow: 0 18px 60px rgba(0,0,0,0.32);
+        }
+        .favorites-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .favorites-modal-title {
+            margin: 0;
+            font-family: var(--font-heading, inherit);
+            color: var(--text-primary, #222);
+        }
+        .favorites-modal-close {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 999px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.12);
+            color: var(--text-primary, #222);
+            font-size: 24px;
+            line-height: 1;
+        }
+        .favorites-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .favorite-list-card {
+            overflow: hidden;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border-glass, rgba(255,255,255,0.25));
+            cursor: pointer;
+        }
+        .favorite-list-card img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+        .favorite-list-card-body {
+            padding: 12px;
+        }
+        .favorite-list-card-title {
+            margin: 0 0 8px;
+            color: var(--text-primary, #222);
+            font-weight: 800;
+            line-height: 1.35;
+        }
+        .favorite-list-card-meta {
+            color: var(--text-muted, #777);
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+        .favorites-empty {
+            padding: 36px;
+            text-align: center;
+            color: var(--text-muted, #777);
+            border: 1px dashed var(--border-glass, rgba(255,255,255,0.35));
+            border-radius: 18px;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function openFavoritesModal() {
+    injectFavoritesFeatureStyle();
+
+    let modal = document.getElementById("favorites-modal");
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "favorites-modal";
+        modal.className = "favorites-modal";
+        modal.innerHTML = `
+            <div class="favorites-modal-card">
+                <div class="favorites-modal-header">
+                    <h2 class="favorites-modal-title">我的最愛</h2>
+                    <button type="button" class="favorites-modal-close" id="favorites-modal-close" aria-label="關閉我的最愛">×</button>
+                </div>
+                <div id="favorites-list" class="favorites-list"></div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById("favorites-modal-close")?.addEventListener("click", closeFavoritesModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeFavoritesModal();
+        });
+    }
+
+    renderFavoritesList();
+    modal.classList.add("active");
+}
+
+function closeFavoritesModal() {
+    document.getElementById("favorites-modal")?.classList.remove("active");
+}
+
+function renderFavoritesList() {
+    const list = document.getElementById("favorites-list");
+    if (!list) return;
+
+    const favoriteIds = Array.from(State.favoriteRecipeIds || []);
+
+    if (favoriteIds.length === 0) {
+        list.className = "favorites-empty";
+        list.innerHTML = "目前還沒有收藏食譜。回到食譜市集，點愛心就會加入我的最愛。";
+        return;
+    }
+
+    list.className = "favorites-list";
+    list.innerHTML = favoriteIds.map(recipeId => {
+        const localRecipe = RECIPES.find(r => r.id === recipeId);
+        const savedRecipe = State.favoriteRecipesData?.get(recipeId) || {};
+        const recipe = localRecipe || savedRecipe;
+        const title = recipe.title || recipeId;
+        const image = recipe.image || "";
+        const meta = [recipe.totalTime, recipe.difficulty, recipe.diet].filter(Boolean).join("｜") || "已收藏食譜";
+
+        return `
+            <article class="favorite-list-card" data-recipe-id="${recipeId}">
+                ${image ? `<img src="${image}" alt="${title}">` : ""}
+                <div class="favorite-list-card-body">
+                    <h3 class="favorite-list-card-title">${title}</h3>
+                    <div class="favorite-list-card-meta">${meta}</div>
+                </div>
+            </article>
+        `;
+    }).join("");
+
+    list.querySelectorAll(".favorite-list-card").forEach(card => {
+        card.addEventListener("click", () => {
+            const recipeId = card.getAttribute("data-recipe-id");
+            closeFavoritesModal();
+            if (RECIPES.some(r => r.id === recipeId)) {
+                showRecipeDetail(recipeId);
+            } else {
+                alert("這筆最愛資料存在資料庫，但目前食譜列表還沒有載入完整內容。請稍後再試或重新整理頁面。");
+            }
+        });
+    });
+}
+
+async function saveFirebaseViewedRecipe(recipeId) {
+    const recipe = RECIPES.find(r => r.id === recipeId);
+    if (!recipe) return;
+
+    const payload = getRecipeFirebasePayload(recipe, {
+        viewedAt: new Date().toISOString()
+    });
+
+    State.viewedRecipesData.set(recipe.id, payload);
+
+    if (!FirebaseAccount.ready || !FirebaseAccount.user) {
+        // 尚未登入時先記在本機狀態，登入後 loadFirebaseUserData 會補傳
+        return;
+    }
+
+    try {
+        await saveFirebaseViewedRecipes({ silent: true });
+    } catch (error) {
+        console.error("同步點開過的食譜到 Firebase 失敗：", error);
+    }
+}
+
+async function saveFirebaseViewedRecipes(options = {}) {
+    if (!FirebaseAccount.ready || !FirebaseAccount.user) return;
+
+    const { doc, setDoc, serverTimestamp } = FirebaseAccount.api;
+    const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+    const viewedRecipes = Array.from(State.viewedRecipesData.values());
+
+    await setDoc(userRef, {
+        viewedRecipes,
+        updatedAt: serverTimestamp()
+    }, { merge: true });
+
+    if (!options.silent) showToast("已同步點開過的食譜到 Firebase");
+}
+
+async function saveFirebaseCompletedRecipe(recipe) {
+    if (!FirebaseAccount.ready) {
+        alert("Firebase 尚未初始化完成，請確認 app.js 已填入 Firebase 設定");
+        return;
+    }
+
+    if (!FirebaseAccount.user) {
+        alert("請先登入，才能把做過的食譜存到帳號");
+        return;
+    }
+
+    try {
+        const { doc, setDoc, arrayUnion, serverTimestamp } = FirebaseAccount.api;
+        const userRef = doc(FirebaseAccount.db, "users", FirebaseAccount.user.uid);
+
+        await setDoc(userRef, {
+            completedRecipes: arrayUnion({
+                recipeId: recipe.id,
+                title: recipe.title,
+                englishTitle: recipe.englishTitle || "",
+                image: recipe.image || "",
+                servings: State.selectedServing || recipe.servingDefault || 1,
+                completedAt: new Date().toISOString()
+            }),
+            updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        showToast(`已將「${recipe.title}」存到做過的食譜`);
+    } catch (error) {
+        console.error("儲存做過的食譜失敗：", error);
+        alert("儲存做過的食譜失敗：" + error.message);
+    }
+}
+
+
+function getFirebaseUsernameInput() {
+    return (document.getElementById("firebase-username")?.value || "")
+        .trim()
+        .toLowerCase();
+}
+
+function isValidUsername(username) {
+    return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+}
+
+function usernameToFirebaseEmail(username) {
+    // Firebase Authentication 的 Email/Password 需要 email 格式。
+    // 這裡把使用者名稱轉成系統內部 email，畫面上仍然是「使用者名稱登入」。
+    return `${username.toLowerCase()}@gourmethaven.local`;
+}
+
+function getUsernameFromFirebaseUser(user) {
+    if (!user) return "使用者";
+    const email = user.email || "";
+    return email.includes("@gourmethaven.local") ? email.split("@")[0] : email;
+}
+
+function getFirebaseAuthErrorText(code) {
+    switch (code) {
+        case "auth/email-already-in-use":
+            return "這個使用者名稱已經註冊過了";
+        case "auth/invalid-email":
+            return "使用者名稱格式不正確";
+        case "auth/weak-password":
+            return "密碼太簡單，至少需要 6 位數";
+        case "auth/invalid-credential":
+            return "帳號或密碼錯誤";
+        case "auth/user-not-found":
+            return "找不到這個使用者名稱";
+        case "auth/wrong-password":
+            return "密碼錯誤";
+        case "permission-denied":
+            return "Firestore 權限被拒，請到 Firebase Rules 開放登入者讀寫自己的 users/{uid}";
+        default:
+            return code || "發生未知錯誤";
     }
 }
