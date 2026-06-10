@@ -39,251 +39,6 @@ const RECIPES = [
         ]
     },
     {
-        id: "steak",
-        title: "尊爵松露熟成肋眼牛排",
-        englishTitle: "Majestic Truffle Ribeye Steak",
-        image: "images/steak_dish.png",
-        description: "特選安格斯濕式熟成肋眼牛排，經過高溫炭烤與梅納反應，外焦內嫩。搭配義大利頂級黑松露醬調製的松露奶油，融合新鮮迷迭香與油封蒜球，散發無可比擬的尊貴氣息。",
-        prepTime: "15 分鐘",
-        cookTime: "10 分鐘",
-        totalTime: "25 分鐘",
-        difficulty: "高級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 1, sour: 2, spicy: 3, savory: 9, texture: 8 },
-        ingredients: [
-            { name: "熟成肋眼牛排", amount: 450, unit: "g", category: "protein" },
-            { name: "黑松露醬", amount: 15, unit: "g", category: "pantry" },
-            { name: "無鹽奶油", amount: 25, unit: "g", category: "dairy" },
-            { name: "新鮮迷迭香", amount: 3, unit: "支", category: "produce" },
-            { name: "大蒜瓣", amount: 5, unit: "瓣", category: "produce" },
-            { name: "粗海鹽", amount: 1, unit: "適量", category: "pantry" },
-            { name: "黑胡椒粒", amount: 1, unit: "適量", category: "pantry" }
-        ],
-        steps: [
-            { title: "牛排回溫與調味", desc: "牛排在室溫下提前退冰並回溫至少 20 分鐘（關鍵步驟），用紙巾擦乾表面多餘水氣。均勻撒上大量粗海鹽與現磨黑胡椒粒醃製。", timeLimit: 900 },
-            { title: "高溫熱鍋鎖水", desc: "鑄鐵鍋燒至極高溫且微微冒白煙，倒入高發煙點油，放入牛排大火煎 2 分鐘不翻面以形成金黃焦脆的梅納殼，隨後翻面繼續大火煎 1.5 分鐘。", timeLimit: 210 },
-            { title: "奶油香草澆淋 (Basting)", desc: "轉中小火，迅速在鍋中丟入奶油、拍扁的大蒜瓣與新鮮迷迭香。將鐵鍋稍微傾斜，用湯匙不斷舀起融化的香草奶油澆淋在牛排表面，持續淋洗 1.5 分鐘（達三分熟）。", timeLimit: 90 },
-            { title: "出鍋靜置與松露塗抹", desc: "將牛排移至溫熱的木板上，表面均勻塗抹一層奢華的黑松露醬，用錫箔紙蓬鬆覆蓋靜置 5 分鐘，使牛排內部纖維放鬆、肉汁回流，隨後切片上桌。", timeLimit: 300 }
-        ],
-        reviews: [
-            { author: "饕客 蔡先生", rating: 5, date: "2026-05-28", text: "松露奶油與熟成牛肉的旨味完美結合，外殼焦香、內裡粉嫩，簡真是感官的極致享受！" },
-            { author: "小食光", rating: 5, date: "2026-05-30", text: "按照澆淋步驟做出來的牛排非常軟嫩，迷迭香氣非常入味，大推！" }
-        ]
-    },
-    {
-        id: "tofu",
-        title: "秘製楓糖芝麻豆腐",
-        englishTitle: "Charred Sesame Maple Tofu",
-        image: "images/tofu_dish.png",
-        description: "有機板豆腐經過重壓脫水，慢煎至四面金黃酥脆，裹上秘製楓糖醬油汁，微甜甘醇。搭配香烤青江菜與烤白芝麻，展現極簡而層次豐富的蔬食新美學。",
-        prepTime: "10 分鐘",
-        cookTime: "12 分鐘",
-        totalTime: "22 分鐘",
-        difficulty: "初級",
-        diet: "素食",
-        servingDefault: 2,
-        flavors: { sweet: 6, sour: 2, spicy: 2, savory: 7, texture: 6 },
-        ingredients: [
-            { name: "有機板豆腐", amount: 350, unit: "g", category: "protein" },
-            { name: "純楓糖漿", amount: 20, unit: "ml", category: "pantry" },
-            { name: "日式減鹽醬油", amount: 30, unit: "ml", category: "pantry" },
-            { name: "熟白芝麻", amount: 10, unit: "g", category: "pantry" },
-            { name: "新鮮青江菜", amount: 4, unit: "株", category: "produce" },
-            { name: "特級芝麻油", amount: 15, unit: "ml", category: "dairy" },
-            { name: "乾紅辣椒絲", amount: 2, unit: "g", category: "pantry" }
-        ],
-        steps: [
-            { title: "豆腐重壓去水與切塊", desc: "將板豆腐包上乾淨廚房紙巾，上面壓一塊重砧板 15 分鐘以逼出水分（能使煎出來的豆腐更扎實酥脆）。去水後切成 2.5 公分的立方形狀。", timeLimit: 900 },
-            { title: "特調楓糖照燒醬汁", desc: "在精緻小碗中混合純楓糖漿、日式醬油、芝麻油、一湯匙冷水與少許白胡椒粉，攪拌均勻至完全融合備用。", timeLimit: 120 },
-            { title: "香煎豆腐與配菜", desc: "不沾鍋中倒入芝麻油中火熱鍋，將豆腐塊下鍋慢煎，每面煎約 1.5 分鐘直到表面呈金黃結殼狀（共約 6 分鐘）。煎至中途時放入對半切開的青江菜同煎。", timeLimit: 360 },
-            { title: "裹汁收稠與點綴", desc: "將調好的楓糖醬汁倒入鍋中，轉大火快速翻炒，讓醬汁均勻裹覆在每塊豆腐上並收汁至焦糖微稠。盛盤後撒上現烤白芝麻與紅辣椒絲即成。", timeLimit: 120 }
-        ],
-        reviews: [
-            { author: "Veggielover", rating: 4, date: "2026-05-25", text: "豆腐煎得非常脆！楓糖的微甜和醬油的鹹味配在一起有一種日式照燒的高級感，非常下飯。" },
-            { author: "健康廚娘", rating: 5, date: "2026-05-29", text: "做法出乎意料的簡單，但味道非常有層次。青江菜裹著楓糖芝麻醬汁非常好吃。" }
-        ]
-    },
-    {
-        id: "avocado",
-        title: "黃金比例酪梨鮮蝦塔",
-        englishTitle: "Stuffed Golden Avocado Salad",
-        image: "images/avocado_dish.png",
-        description: "嚴選熟度恰到好處的酪梨，去籽去皮後切丁，拌入溫水汆燙的新鮮白蝦仁、多汁櫻桃小番茄與新鮮香菜。以鮮榨檸檬汁與特級初榨橄欖油調和，清新高雅，富含健康油脂。",
-        prepTime: "15 分鐘",
-        cookTime: "0 分鐘",
-        totalTime: "15 分鐘",
-        difficulty: "初級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 3, sour: 6, spicy: 1, savory: 5, texture: 5 },
-        ingredients: [
-            { name: "熟酪梨", amount: 2, unit: "顆", category: "produce" },
-            { name: "熟白蝦仁", amount: 120, unit: "g", category: "protein" },
-            { name: "櫻桃番茄", amount: 80, unit: "g", category: "produce" },
-            { name: "水晶紅洋蔥", amount: 20, unit: "g", category: "produce" },
-            { name: "新鮮香菜", amount: 5, unit: "g", category: "produce" },
-            { name: "鮮榨青檸汁", amount: 15, unit: "ml", category: "pantry" },
-            { name: "特級初榨橄欖油", amount: 10, unit: "ml", category: "dairy" },
-            { name: "岩鹽與黑胡椒", amount: 1, unit: "少許", category: "pantry" }
-        ],
-        steps: [
-            { title: "酪梨處理與切丁", desc: "酪梨沿縱向切對半，輕輕扭轉分開，去籽。用鐵湯匙小心沿邊緣挖出果肉（保留完好外殼做為容器），並將果肉切成 1 公分小丁。", timeLimit: 300 },
-            { title: "食材汆燙與蔬菜切割", desc: "若非熟蝦仁，先將蝦仁用滾水快速汆燙 1 分鐘，隨後撈起過冰水以保持彈牙，切小丁。櫻桃小番茄切四等分，紅洋蔥與香菜切極細碎。", timeLimit: 240 },
-            { title: "調味拌和與乳化", desc: "將酪梨丁、蝦丁、番茄、紅洋蔥、香菜放入精緻攪拌碗中。淋上青檸汁（能防酪梨氧化變黑並提味）、橄欖油、岩鹽與新鮮黑胡椒粉，輕柔翻拌均勻。", timeLimit: 120 },
-            { title: "填裝盛塔與奢華裝飾", desc: "將拌好的酪梨鮮蝦沙拉小心填回酪梨空殼內，堆疊出飽滿的小塔形。頂端點綴幾片新鮮香菜葉與幾粒黑胡椒，精美冷盤即刻呈現。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "健身達人 Cindy", rating: 5, date: "2026-05-24", text: "超級清爽！低碳減脂的聖品，酪梨的奶香跟番茄的微酸、洋蔥的爽脆完全咬合在一起，口感太舒服了。" },
-            { author: "小吃貨", rating: 4, date: "2026-06-02", text: "夏天吃這個超消暑。酪梨殼當餐盤非常優雅，發到 IG 上朋友們都說看起來超奢華！" }
-        ]
-    },
-    // --- 20 NEW RECIPES ---
-    {
-        id: "salmon_baked",
-        title: "法式香草奶油焗鮭魚",
-        englishTitle: "French Herb Butter Baked Salmon",
-        image: "images/salmon_dish.png",
-        description: "鮮嫩的鮭魚排塗抹上滿滿的法式香草奶油，放入烤箱焗烤出淡淡焦香。口感多汁，帶有迷人的百里香與法式香蒜氣息。",
-        prepTime: "10 分鐘",
-        cookTime: "15 分鐘",
-        totalTime: "25 分鐘",
-        difficulty: "中級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 3, spicy: 1, savory: 8, texture: 6 },
-        ingredients: [
-            { name: "鮭魚排", amount: 400, unit: "g", category: "protein" },
-            { name: "無鹽奶油", amount: 30, unit: "g", category: "dairy" },
-            { name: "大蒜碎", amount: 10, unit: "g", category: "produce" },
-            { name: "新鮮百里香", amount: 5, unit: "g", category: "produce" },
-            { name: "檸檬汁", amount: 10, unit: "ml", category: "pantry" }
-        ],
-        steps: [
-            { title: "抹醬調配", desc: "將軟化的奶油與大蒜碎、百里香葉、檸檬汁及少許鹽混合成香蒜草本奶油醬。", timeLimit: 180 },
-            { title: "均勻塗抹", desc: "鮭魚排擦乾後放置在鋪有錫箔紙的烤盤上，將調好的香草奶油均勻塗抹在鮭魚表面。", timeLimit: 120 },
-            { title: "高溫焗烤", desc: "放入預熱至 200°C 的烤箱中烤 12-15 分鐘，直到表面金黃且鮭魚肉呈現粉紅色熟透即可。", timeLimit: 900 }
-        ],
-        reviews: [
-            { author: "Chef Pierre", rating: 5, date: "2026-06-01", text: "大蒜和百里香奶油的味道焗烤過後香氣驚人，鮭魚十分鮮嫩！" }
-        ]
-    },
-    {
-        id: "salmon_teriyaki",
-        title: "日式照燒蜜汁鮭魚",
-        englishTitle: "Japanese Teriyaki Honey Salmon",
-        image: "images/salmon_dish.png",
-        description: "甘甜微鹹的日式照燒醬油配上天然蜂蜜，包裹著香煎至酥脆的鮭魚排，撒上滿滿熟白芝麻，是一道極致下飯的日式家庭奢華料理。",
-        prepTime: "5 分鐘",
-        cookTime: "10 分鐘",
-        totalTime: "15 分鐘",
-        difficulty: "初級",
-        diet: "無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 7, sour: 1, spicy: 1, savory: 8, texture: 6 },
-        ingredients: [
-            { name: "鮭魚排", amount: 350, unit: "g", category: "protein" },
-            { name: "日式醬油", amount: 40, unit: "ml", category: "pantry" },
-            { name: "天然蜂蜜", amount: 20, unit: "ml", category: "pantry" },
-            { name: "味醂", amount: 20, unit: "ml", category: "pantry" },
-            { name: "熟白芝麻", amount: 5, unit: "g", category: "pantry" }
-        ],
-        steps: [
-            { title: "醬汁調製", desc: "將日式醬油、蜂蜜與味醂在小碗中混合攪拌，直至蜂蜜完全溶解。", timeLimit: 120 },
-            { title: "雙面煎製", desc: "熱油鍋，放入鮭魚排雙面各煎 3 分鐘至金黃結殼後，倒出鍋中多餘油分。", timeLimit: 360 },
-            { title: "裹醬收汁", desc: "倒入照燒醬汁，小火慢煮並用湯匙將醬汁反覆澆淋在鮭魚上，直至醬汁濃稠收乾，撒上白芝麻裝飾。", timeLimit: 180 }
-        ],
-        reviews: [
-            { author: "美代子", rating: 5, date: "2026-06-02", text: "非常甜美，蜂蜜的香氣讓照燒醬變得很高級，孩子非常喜歡吃！" }
-        ]
-    },
-    {
-        id: "salmon_steamed",
-        title: "泰式酸辣檸檬蒸鮭魚",
-        englishTitle: "Thai Spicy Lemon Steamed Salmon",
-        image: "images/salmon_dish.png",
-        description: "泰式宮廷風味的清蒸料理。以泰國青檸、朝天椒、魚露與蒜末調製出香氣四溢的酸辣汁，清蒸厚切鮭魚，酸辣開胃，清爽無負擔。",
-        prepTime: "10 分鐘",
-        cookTime: "12 分鐘",
-        totalTime: "22 分鐘",
-        difficulty: "初級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 3, sour: 8, spicy: 7, savory: 7, texture: 5 },
-        ingredients: [
-            { name: "鮭魚排", amount: 400, unit: "g", category: "protein" },
-            { name: "鮮榨青檸汁", amount: 30, unit: "ml", category: "pantry" },
-            { name: "魚露", amount: 20, unit: "ml", category: "pantry" },
-            { name: "朝天椒末", amount: 5, unit: "g", category: "produce" },
-            { name: "大蒜碎", amount: 15, unit: "g", category: "produce" }
-        ],
-        steps: [
-            { title: "調配泰式酸辣汁", desc: "在碗中將檸檬汁、魚露、大蒜碎、朝天椒末與一茶匙糖混合均勻。", timeLimit: 180 },
-            { title: "澆汁準備", desc: "將鮭魚排擺放在蒸盤中，把調好的泰式酸辣汁均勻淋在鮭魚排四周與表面。", timeLimit: 120 },
-            { title: "大火清蒸", desc: "水燒開後放入蒸鍋，用大火蒸 10-12 分鐘至熟，出蒸鍋撒上新鮮香菜葉裝飾即可。", timeLimit: 720 }
-        ],
-        reviews: [
-            { author: "泰料控", rating: 5, date: "2026-05-29", text: "超級夠味！酸度非常提神，辣味恰到好處，把鮭魚肥美的油脂感中和得非常好。" }
-        ]
-    },
-    {
-        id: "salmon_pesto",
-        title: "意式羅勒青醬拌鮭魚排",
-        englishTitle: "Italian Basil Pesto Salmon",
-        image: "images/salmon_dish.png",
-        description: "香煎金黃的鮭魚排淋上以新鮮羅勒葉、松子、帕馬森起司與特級橄欖油製成的手作青醬，散發深邃的義大利鄉村堅果香氣。",
-        prepTime: "8 分鐘",
-        cookTime: "10 分鐘",
-        totalTime: "18 分鐘",
-        difficulty: "初級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 1, sour: 2, spicy: 1, savory: 8, texture: 7 },
-        ingredients: [
-            { name: "鮭魚排", amount: 400, unit: "g", category: "protein" },
-            { name: "手作羅勒青醬", amount: 40, unit: "g", category: "pantry" },
-            { name: "小番茄", amount: 60, unit: "g", category: "produce" },
-            { name: "特級初榨橄欖油", amount: 10, unit: "ml", category: "dairy" }
-        ],
-        steps: [
-            { title: "香煎鮭魚", desc: "鮭魚排均勻抹上鹽與胡椒，熱鍋下橄欖油，雙面煎至金黃（約 6-8 分鐘）熟透盛盤。", timeLimit: 480 },
-            { title: "熱起青醬配菜", desc: "原鍋加入小番茄稍微拌煎至外皮微縮，關火，利用餘溫加入青醬快速拌勻以防止羅勒變黑。", timeLimit: 120 },
-            { title: "澆汁擺盤", desc: "將熱番茄青醬澆淋在煎好的鮭魚排上，撒上些許松子裝飾即成。", timeLimit: 120 }
-        ],
-        reviews: [
-            { author: "Milano E.", rating: 4, date: "2026-05-27", text: "手作青醬非常香，松子和起司的奶香跟鮭魚特別搭！" }
-        ]
-    },
-    {
-        id: "salmon_avocado_tower",
-        title: "北歐煙燻鮭魚酪梨塔",
-        englishTitle: "Nordic Smoked Salmon Avocado Tower",
-        image: "images/salmon_dish.png",
-        description: "頂級北歐冷燻鮭魚薄片，搭配滑順綿密的熟酪梨泥與微辣的水晶紅洋蔥碎，層層堆疊成精緻的法式塔狀，口感如絲綢般柔滑細緻。",
-        prepTime: "12 分鐘",
-        cookTime: "0 分鐘",
-        totalTime: "12 分鐘",
-        difficulty: "中級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 4, spicy: 2, savory: 7, texture: 8 },
-        ingredients: [
-            { name: "燻鮭魚片", amount: 150, unit: "g", category: "protein" },
-            { name: "熟酪梨", amount: 1.5, unit: "顆", category: "produce" },
-            { name: "水晶紅洋蔥", amount: 20, unit: "g", category: "produce" },
-            { name: "鮮榨青檸汁", amount: 10, unit: "ml", category: "pantry" },
-            { name: "刺山柑 (Capers)", amount: 5, unit: "g", category: "pantry" }
-        ],
-        steps: [
-            { title: "酪梨泥製作", desc: "將酪梨肉取出壓成粗泥，加入檸檬汁、鹽、黑胡椒及少許紅洋蔥碎拌勻防止變色。", timeLimit: 300 },
-            { title: "鮭魚切丁", desc: "將煙燻鮭魚片切成 0.8 公分的小丁，與刺山柑拌在一起增加風味層次。", timeLimit: 240 },
-            { title: "圓模塑形", desc: "在盤子中央放置圓形慕斯模，底層鋪滿酪梨泥，上層填入煙燻鮭魚丁，輕輕壓實後脫模即可。", timeLimit: 180 }
-        ],
-        reviews: [
-            { author: "Sophia", rating: 5, date: "2026-06-03", text: "這是一道完美的宴會前菜！視覺上非常精緻，煙燻味和酪梨的油脂結合得恰到好處。" }
-        ]
-    },
-    {
         id: "beef_bourg",
         title: "經典法式紅酒燉牛肉",
         englishTitle: "Classic French Boeuf Bourguignon",
@@ -311,121 +66,6 @@ const RECIPES = [
         ],
         reviews: [
             { author: "饕客 阿明", rating: 5, date: "2026-05-30", text: "這才是真正的法式紅酒燉牛肉！湯汁濃稠，充滿紅酒與香草的底蘊，牛肉燉得軟爛入味。" }
-        ]
-    },
-    {
-        id: "beef_yakiniku",
-        title: "黑胡椒蒜片和牛燒肉",
-        englishTitle: "Garlic Black Pepper Wagyu Yakiniku",
-        image: "images/steak_dish.png",
-        description: "嚴選頂級澳洲和牛薄片，在高溫鐵板上快速炙烤鎖住油脂，搭配炸至酥脆的金黃蒜片與研磨黑胡椒粒，油花豐盈，香氣噴鼻。",
-        prepTime: "10 分鐘",
-        cookTime: "5 分鐘",
-        totalTime: "15 分鐘",
-        difficulty: "中級",
-        diet: "低碳水",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 1, spicy: 4, savory: 9, texture: 7 },
-        ingredients: [
-            { name: "和牛燒肉片", amount: 300, unit: "g", category: "protein" },
-            { name: "大蒜瓣", amount: 6, unit: "瓣", category: "produce" },
-            { name: "黑胡椒粒", amount: 5, unit: "g", category: "pantry" },
-            { name: "岩鹽", amount: 1, unit: "少許", category: "pantry" },
-            { name: "特級芝麻油", amount: 10, unit: "ml", category: "dairy" }
-        ],
-        steps: [
-            { title: "製作黃金蒜片", desc: "大蒜切極薄片，平底鍋倒入少許油，小火慢慢將蒜片煎至金黃酥脆後撈出，濾乾多餘油分備用。", timeLimit: 300 },
-            { title: "高溫炙烤和牛", desc: "大火熱鐵鍋，下芝麻油，將和牛肉片平鋪入鍋中，單面快速煎 30 秒，翻面再煎 15 秒（達5分熟）。", timeLimit: 120 },
-            { title: "調味點綴", desc: "撒上岩鹽、現磨粗黑胡椒粒，盛盤後鋪上香脆大蒜片即可享用。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "Yuki", rating: 5, date: "2026-06-01", text: "和牛油花在嘴裡化開，配上焦香的蒜片和黑胡椒，簡直太棒了！做法也超快。" }
-        ]
-    },
-    {
-        id: "beef_tenderloin",
-        title: "法式勃艮第蒜香牛柳",
-        englishTitle: "French Garlic Butter Beef Tenderloin",
-        image: "images/steak_dish.png",
-        description: "精選極嫩牛菲力切丁，以大火快煎鎖住肉汁，加入濃郁法式蒜香奶油與歐芹碎快速翻炒，是一道口感軟嫩、奶香濃郁的經典法式熱小炒。",
-        prepTime: "10 分鐘",
-        cookTime: "8 分鐘",
-        totalTime: "18 分鐘",
-        difficulty: "中級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 1, sour: 1, spicy: 2, savory: 9, texture: 8 },
-        ingredients: [
-            { name: "牛菲力肉", amount: 350, unit: "g", category: "protein" },
-            { name: "無鹽奶油", amount: 30, unit: "g", category: "dairy" },
-            { name: "大蒜碎", amount: 15, unit: "g", category: "produce" },
-            { name: "新鮮歐芹碎", amount: 5, unit: "g", category: "produce" }
-        ],
-        steps: [
-            { title: "切塊與醃製", desc: "牛菲力切成 2.5 公分方塊，加入少許鹽、胡椒與橄欖油醃製 5 分鐘。", timeLimit: 300 },
-            { title: "高溫煎製鎖水", desc: "平底鍋大火燒熱，放入牛肉丁快速煎 2-3 分鐘至四面微焦，倒出多餘油脂並將火轉小。", timeLimit: 180 },
-            { title: "奶油蒜香翻炒", desc: "加入奶油、大蒜碎及歐芹碎，快速翻炒 1 分鐘，讓融化的蒜香奶油均勻包裹牛肉粒即可出鍋。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "老饕路易", rating: 5, date: "2026-06-02", text: "牛柳丁非常軟嫩！大蒜奶油醬汁濃郁到可以拿來沾法棍麵包吃。" }
-        ]
-    },
-    {
-        id: "beef_sukiyaki",
-        title: "日式壽喜燒肥牛鍋",
-        englishTitle: "Japanese Sukiyaki Beef Pot",
-        image: "images/steak_dish.png",
-        description: "以柴魚高湯、日式醬油與砂糖熬製出甘甜的壽喜燒醬汁。燙煮雪花牛肉片、有機豆腐、大白菜與香菇，沾以新鮮無菌蛋液，口感溫潤滑順。",
-        prepTime: "15 分鐘",
-        cookTime: "15 分鐘",
-        totalTime: "30 分鐘",
-        difficulty: "初級",
-        diet: "無限制",
-        servingDefault: 2,
-        flavors: { sweet: 6, sour: 1, spicy: 1, savory: 8, texture: 6 },
-        ingredients: [
-            { name: "雪花牛肉片", amount: 300, unit: "g", category: "protein" },
-            { name: "日式醬油", amount: 60, unit: "ml", category: "pantry" },
-            { name: "有機板豆腐", amount: 150, unit: "g", category: "protein" },
-            { name: "大白菜", amount: 200, unit: "g", category: "produce" },
-            { name: "新鮮無菌蛋", amount: 2, unit: "個", category: "protein" }
-        ],
-        steps: [
-            { title: "熬製壽喜燒醬汁", desc: "將日式醬油、味醂、米酒與砂糖以 3:2:2:1 的黃金比例與少許高湯混合煮沸備用。", timeLimit: 300 },
-            { title: "煎豆腐與配菜", desc: "在淺鐵鍋中倒入少許油，將板豆腐塊兩面煎至微焦，擺入大白菜、香菇及蔥段。", timeLimit: 300 },
-            { title: "淋汁涮牛肉", desc: "倒入醬汁大火煮滾，隨後放入肥牛肉片輕輕涮煮至粉紅色，沾上打散的蛋液即可食用。", timeLimit: 300 }
-        ],
-        reviews: [
-            { author: "櫻花妹", rating: 5, date: "2026-05-26", text: "湯頭甜鹹適中，牛肉沾生蛋液真的超級滑嫩，非常正宗的關東風味！" }
-        ]
-    },
-    {
-        id: "beef_spicy",
-        title: "川香乾煸麻辣牛肉絲",
-        englishTitle: "Sichuan Spicy Dry-Fried Shredded Beef",
-        image: "images/steak_dish.png",
-        description: "經典川菜。牛肉絲經過慢火煸乾水分，加入四川郫縣豆瓣醬、大紅袍花椒與乾辣椒段爆炒，口感酥香有嚼勁，香辣過癮。",
-        prepTime: "15 分鐘",
-        cookTime: "10 分鐘",
-        totalTime: "25 分鐘",
-        difficulty: "高級",
-        diet: "低碳水",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 1, spicy: 9, savory: 8, texture: 7 },
-        ingredients: [
-            { name: "牛菲力肉", amount: 300, unit: "g", category: "protein" },
-            { name: "乾紅辣椒絲", amount: 15, unit: "g", category: "pantry" },
-            { name: "花椒粒", amount: 5, unit: "g", category: "pantry" },
-            { name: "薑絲", amount: 10, unit: "g", category: "produce" },
-            { name: "特級芝麻油", amount: 10, unit: "ml", category: "dairy" }
-        ],
-        steps: [
-            { title: "切絲醃製", desc: "牛肉切成長細絲，用少許醬油、料酒稍微抓醃 10 分鐘。", timeLimit: 600 },
-            { title: "慢火乾煸", desc: "鍋熱油，下牛肉絲中火不停翻炒煸炒 5-6 分鐘，直到水分收乾、肉絲呈深褐色金黃邊緣。", timeLimit: 360 },
-            { title: "麻辣爆炒", desc: "下薑絲、乾辣椒段、花椒粒及一勺豆瓣醬大火快速爆炒 2 分鐘，淋上芝麻油即可出鍋。", timeLimit: 120 }
-        ],
-        reviews: [
-            { author: "無辣不歡", rating: 5, date: "2026-06-02", text: "麻辣味非常透徹，肉絲乾香有嚼勁，是非常棒的下酒菜！" }
         ]
     },
     {
@@ -458,122 +98,6 @@ const RECIPES = [
         ]
     },
     {
-        id: "tofu_salted_egg",
-        title: "金沙咸蛋黃焗豆腐",
-        englishTitle: "Crispy Salted Egg Yolk Tofu",
-        image: "images/tofu_dish.png",
-        description: "嫩豆腐裹上薄薄太白粉煎至外酥內嫩，再放入以小火煸炒至起沙、鹹香濃郁的鹹蛋黃金沙醬中均勻焗裹，外層酥沙、內裡爆漿。",
-        prepTime: "10 分鐘",
-        cookTime: "12 分鐘",
-        totalTime: "22 分鐘",
-        difficulty: "初級",
-        diet: "素食",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 1, spicy: 1, savory: 8, texture: 7 },
-        ingredients: [
-            { name: "有機板豆腐", amount: 350, unit: "g", category: "protein" },
-            { name: "鹹鴨蛋黃", amount: 3, unit: "個", category: "protein" },
-            { name: "無鹽奶油", amount: 15, unit: "g", category: "dairy" },
-            { name: "太白粉", amount: 30, unit: "g", category: "pantry" },
-            { name: "蔥花", amount: 10, unit: "g", category: "produce" }
-        ],
-        steps: [
-            { title: "豆腐裹粉煎炸", desc: "豆腐切方塊，均勻沾上一層薄薄的太白粉。鍋中多倒油，煎炸至豆腐表面形成酥脆的硬殼，盛出備用。", timeLimit: 360 },
-            { title: "金沙炒沙", desc: "鹹蛋黃先蒸熟壓碎。原鍋熱奶油，下鹹蛋黃末小火慢炒 2 分鐘，直至蛋黃起細密泡沫（起沙）。", timeLimit: 180 },
-            { title: "均勻焗裹", desc: "倒入煎好的豆腐快速翻拌，讓金沙醬均勻裹在每塊豆腐上，撒上蔥花即可出鍋。", timeLimit: 120 }
-        ],
-        reviews: [
-            { author: "鹹蛋黃狂熱者", rating: 5, date: "2026-06-02", text: "金沙炒得很成功，沙沙的口感包裹著超嫩的豆腐，實在是太美味了！" }
-        ]
-    },
-    {
-        id: "tofu_tomato",
-        title: "意式番茄羅勒燉豆腐",
-        englishTitle: "Italian Tomato Basil Tofu Stew",
-        image: "images/tofu_dish.png",
-        description: "以義大利進口去皮聖馬扎諾番茄與新鮮羅勒葉慢熬出酸甜醇厚的紅醬，燉煮嫩豆腐塊，番茄清香與豆香融合，是一道低卡無負擔的歐風健康蔬食。",
-        prepTime: "10 分鐘",
-        cookTime: "15 分鐘",
-        totalTime: "25 分鐘",
-        difficulty: "初級",
-        diet: "素食,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 3, sour: 6, spicy: 1, savory: 6, texture: 6 },
-        ingredients: [
-            { name: "有機板豆腐", amount: 300, unit: "g", category: "protein" },
-            { name: "櫻桃番茄", amount: 200, unit: "g", category: "produce" },
-            { name: "新鮮香菜", amount: 10, unit: "g", category: "produce" },
-            { name: "特級初榨橄欖油", amount: 15, unit: "ml", category: "dairy" },
-            { name: "大蒜瓣", amount: 3, unit: "瓣", category: "produce" }
-        ],
-        steps: [
-            { title: "爆香與炒茄", desc: "鍋熱橄欖油，下拍扁的大蒜瓣炒香，隨後加入切碎的小番茄，中火炒至軟爛出沙。", timeLimit: 300 },
-            { title: "燉煮豆腐", desc: "倒入 100ml 水，加入豆腐塊，撒入鹽與黑胡椒，蓋上鍋蓋中火燉煮 8-10 分鐘入味。", timeLimit: 600 },
-            { title: "加入香草", desc: "起鍋前關火，拌入撕碎的新鮮香菜與羅勒，淋上一圈橄欖油即成。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "蔬食主義", rating: 4, date: "2026-05-24", text: "用意式番茄紅醬燉豆腐真的很新穎，番茄的酸爽滲透到豆腐裡面，非常清爽。" }
-        ]
-    },
-    {
-        id: "tofu_agedashi",
-        title: "日式揚出溫泉豆腐",
-        englishTitle: "Japanese Agedashi Tofu",
-        image: "images/tofu_dish.png",
-        description: "裹上柴魚片與太白粉的日本嫩豆腐炸至金黃，浸泡在特製的日式昆布柴魚高湯中。點綴蘿蔔泥、薑泥與蔥花，外皮吸飽湯汁，外軟內嫩。",
-        prepTime: "10 分鐘",
-        cookTime: "8 分鐘",
-        totalTime: "18 分鐘",
-        difficulty: "初級",
-        diet: "素食",
-        servingDefault: 2,
-        flavors: { sweet: 3, sour: 2, spicy: 1, savory: 7, texture: 7 },
-        ingredients: [
-            { name: "有機板豆腐", amount: 300, unit: "g", category: "protein" },
-            { name: "日式醬油", amount: 30, unit: "ml", category: "pantry" },
-            { name: "太白粉", amount: 40, unit: "g", category: "pantry" },
-            { name: "蘿蔔泥", amount: 15, unit: "g", category: "produce" },
-            { name: "熟白芝麻", amount: 5, unit: "g", category: "pantry" }
-        ],
-        steps: [
-            { title: "切塊沾粉", desc: "豆腐切成 3 公分大方塊，用紙巾輕輕吸乾表面水分，四面均勻沾滿一層薄太白粉。", timeLimit: 240 },
-            { title: "高溫煎炸", desc: "油鍋燒至 180°C，將豆腐下鍋炸至外表微黃酥脆（約 3 分鐘），撈出瀝乾擺在深碗中。", timeLimit: 240 },
-            { title: "調汁裝盤", desc: "在小鍋中加熱醬油、味醂與柴魚高湯調製成溫醬汁，沿碗邊倒入。豆腐頂端鋪上蘿蔔泥、薑泥、熟白芝麻即可。", timeLimit: 180 }
-        ],
-        reviews: [
-            { author: "Kato", rating: 5, date: "2026-06-03", text: "外皮吸滿了甜甜的柴魚高湯，豆腐入口即化，蘿蔔泥很解油膩。" }
-        ]
-    },
-    {
-        id: "tofu_kimchi",
-        title: "韓式泡菜海鮮豆腐鍋",
-        englishTitle: "Korean Kimchi Seafood Tofu Soup",
-        image: "images/tofu_dish.png",
-        description: "香辣發酵的韓式泡菜與嫩豆腐在石鍋中熱氣騰騰地慢熬，加入鮮美白蝦仁、花蛤與特製韓式辣醬，鮮香酸辣，極富冬日溫暖感。",
-        prepTime: "10 分鐘",
-        cookTime: "15 分鐘",
-        totalTime: "25 分鐘",
-        difficulty: "初級",
-        diet: "無限制",
-        servingDefault: 2,
-        flavors: { sweet: 3, sour: 5, spicy: 6, savory: 8, texture: 6 },
-        ingredients: [
-            { name: "有機板豆腐", amount: 250, unit: "g", category: "protein" },
-            { name: "熟白蝦仁", amount: 100, unit: "g", category: "protein" },
-            { name: "韓式泡菜", amount: 120, unit: "g", category: "produce" },
-            { name: "日式醬油", amount: 15, unit: "ml", category: "pantry" },
-            { name: "大蒜碎", amount: 10, unit: "g", category: "produce" }
-        ],
-        steps: [
-            { title: "炒製底料", desc: "鍋熱芝麻油，下蒜碎與泡菜，中火炒 2-3 分鐘至泡菜香氣釋放。", timeLimit: 180 },
-            { title: "注入高湯煨煮", desc: "倒入 400ml 水或高湯，加入一勺韓式辣醬及醬油調味。煮沸後放入豆腐塊，蓋上鍋蓋煮 8 分鐘。", timeLimit: 480 },
-            { title: "下海鮮出鍋", desc: "最後放入白蝦仁與蛤蜊，大火煮 3 分鐘至海鮮熟透，撒上蔥段即可滾燙端上桌。", timeLimit: 180 }
-        ],
-        reviews: [
-            { author: "韓料愛好者", rating: 5, date: "2026-05-28", text: "湯頭非常鮮美！泡菜的酸辣味完全滲透到嫩豆腐裡面，熱熱的喝超棒。" }
-        ]
-    },
-    {
         id: "avocado_guac",
         title: "經典墨西哥酪梨醬",
         englishTitle: "Classic Guacamole with Chips",
@@ -600,121 +124,6 @@ const RECIPES = [
         ],
         reviews: [
             { author: "Carlos", rating: 5, date: "2026-05-27", text: "新鮮的手搗 Guacamole 最棒了！青檸汁的用量恰到好處，非常開胃的開胃菜！" }
-        ]
-    },
-    {
-        id: "avocado_toast",
-        title: "酪梨水波蛋烤酸種麵包",
-        englishTitle: "Avocado Poached Egg Sourdough",
-        image: "images/avocado_dish.png",
-        description: "經典輕食早餐。烤至微焦香脆的天然酸種麵包，鋪上厚厚一層調味酪梨泥，頂端放上一顆完美流心的低溫水波蛋。切開後蛋黃液流出，極致療癒。",
-        prepTime: "10 分鐘",
-        cookTime: "5 分鐘",
-        totalTime: "15 分鐘",
-        difficulty: "初級",
-        diet: "素食",
-        servingDefault: 1,
-        flavors: { sweet: 2, sour: 3, spicy: 1, savory: 6, texture: 7 },
-        ingredients: [
-            { name: "熟酪梨", amount: 1, unit: "顆", category: "produce" },
-            { name: "新鮮無菌蛋", amount: 1, unit: "個", category: "protein" },
-            { name: "鮮榨青檸汁", amount: 5, unit: "ml", category: "pantry" },
-            { name: "特級初榨橄欖油", amount: 5, unit: "ml", category: "dairy" },
-            { name: "酸種麵包片", amount: 1, unit: "片", category: "pantry" }
-        ],
-        steps: [
-            { title: "烤麵包與抹酪梨", desc: "將麵包片放入烤箱烤至兩面酥脆。酪梨肉壓碎，加檸檬汁、鹽調味後均勻塗抹在麵包表面。", timeLimit: 240 },
-            { title: "煮流心水波蛋", desc: "鍋中燒開水，加少許醋。水滾後轉小火，用勺子攪出漩渦，將蛋打入漩渦中心，微火煮 3 分鐘至蛋清凝固、蛋黃液仍流動，撈出控乾。", timeLimit: 240 },
-            { title: "組裝完成", desc: "將水波蛋鋪在酪梨麵包頂端，撒上黑胡椒、辣椒碎與少許橄欖油即可食用。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "Brunch Lover", rating: 5, date: "2026-06-01", text: "流心的水波蛋跟綿密的酪梨泥在酸種麵包上，實在是無敵的早午餐組合！" }
-        ]
-    },
-    {
-        id: "avocado_crab",
-        title: "加州酪梨芒果鮮蟹卷",
-        englishTitle: "California Avocado Mango Crab Roll",
-        image: "images/avocado_dish.png",
-        description: "奢華日式壽司卷的現代改良。將鮮甜蟹肉棒拌上輕蛋黃醬，與熟芒果條、生酪梨條層層捲入紫菜與醋飯中，散發淡雅果香與海洋鮮甜。",
-        prepTime: "15 分鐘",
-        cookTime: "0 分鐘",
-        totalTime: "15 分鐘",
-        difficulty: "中級",
-        diet: "無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 5, sour: 3, spicy: 1, savory: 7, texture: 7 },
-        ingredients: [
-            { name: "熟酪梨", amount: 1, unit: "顆", category: "produce" },
-            { name: "熟白蝦仁", amount: 80, unit: "g", category: "protein" },
-            { name: "櫻桃番茄", amount: 50, unit: "g", category: "produce" },
-            { name: "鮮榨青檸汁", amount: 10, unit: "ml", category: "pantry" }
-        ],
-        steps: [
-            { title: "食材切條", desc: "酪梨去皮去籽，切成長細條；芒果同樣去皮切長條。蟹肉拆成絲狀拌入少許日式美乃滋。", timeLimit: 360 },
-            { title: "鋪飯捲壽司", desc: "壽司竹簾鋪上保鮮膜，鋪上海苔片及一薄層壽司飯，翻轉使飯朝下。將酪梨條、芒果條、蟹肉絲排在中心。", timeLimit: 360 },
-            { title: "捲起切塊", desc: "拉起竹簾順勢將食材捲緊呈圓柱狀，用利刀切成 2 公分小段即可裝盤。", timeLimit: 180 }
-        ],
-        reviews: [
-            { author: "壽希大師", rating: 4, date: "2026-05-29", text: "芒果的清甜跟酪梨的豐腴口感相得益彰，是非常有創意的加州卷配方！" }
-        ]
-    },
-    {
-        id: "avocado_smoothie",
-        title: "酪梨奇亞籽椰奶昔",
-        englishTitle: "Creamy Avocado Chia Coconut Smoothie",
-        image: "images/avocado_dish.png",
-        description: "健康的綠色排毒能量飲。酪梨與冰鎮無糖椰奶、香蕉、奇亞籽在高速調理機中打至奶油般濃稠滑順，口感醇厚，富含膳食纖維與優質脂肪。",
-        prepTime: "5 分鐘",
-        cookTime: "0 分鐘",
-        totalTime: "5 分鐘",
-        difficulty: "初級",
-        diet: "素食,無麩質",
-        servingDefault: 1,
-        flavors: { sweet: 5, sour: 1, spicy: 1, savory: 3, texture: 8 },
-        ingredients: [
-            { name: "熟酪梨", amount: 0.5, unit: "顆", category: "produce" },
-            { name: "天然蜂蜜", amount: 15, unit: "ml", category: "pantry" },
-            { name: "鮮榨青檸汁", amount: 5, unit: "ml", category: "pantry" },
-            { name: "無糖椰奶", amount: 200, unit: "ml", category: "dairy" },
-            { name: "奇亞籽", amount: 10, unit: "g", category: "pantry" }
-        ],
-        steps: [
-            { title: "放入調理機", desc: "將熟酪梨肉取出，與香蕉、奇亞籽、無糖椰奶、蜂蜜一同放入果汁調理機中。", timeLimit: 180 },
-            { title: "高速攪打", desc: "開啟機器，以高速打 1-2 分鐘，直到奶昔質地如絲綢般均勻、濃密無顆粒。", timeLimit: 60 },
-            { title: "裝杯點綴", desc: "倒入精緻高腳杯，頂端撒上少許乾奇亞籽及薄荷葉裝飾即成。", timeLimit: 60 }
-        ],
-        reviews: [
-            { author: "YogaGirl", rating: 5, date: "2026-06-03", text: "口感像冰淇淋一樣綿密！但是非常健康，椰奶和酪梨味道簡直絕配。" }
-        ]
-    },
-    {
-        id: "avocado_chicken",
-        title: "青醬酪梨雞肉暖沙拉",
-        englishTitle: "Pesto Avocado Chicken Warm Salad",
-        image: "images/avocado_dish.png",
-        description: "舒食暖沙拉。煎至表皮金黃的嫩雞胸肉切片，與新鮮酪梨塊、小番茄、芝麻葉拌在一起，淋上手作羅勒青醬，是一道充滿飽足感的極致輕食。",
-        prepTime: "10 分鐘",
-        cookTime: "10 分鐘",
-        totalTime: "20 分鐘",
-        difficulty: "初級",
-        diet: "低碳水,無麩質",
-        servingDefault: 2,
-        flavors: { sweet: 2, sour: 3, spicy: 1, savory: 8, texture: 6 },
-        ingredients: [
-            { name: "熟酪梨", amount: 1, unit: "顆", category: "produce" },
-            { name: "手作羅勒青醬", amount: 30, unit: "g", category: "pantry" },
-            { name: "櫻桃番茄", amount: 80, unit: "g", category: "produce" },
-            { name: "大蒜碎", amount: 5, unit: "g", category: "produce" },
-            { name: "雞胸肉", amount: 200, unit: "g", category: "protein" }
-        ],
-        steps: [
-            { title: "香煎雞肉", desc: "雞胸肉切厚片，均勻抹上鹽和胡椒。平底鍋倒少許油，中火將雞片雙面煎至全熟金黃（約 6-8 分鐘）取出稍微降溫。", timeLimit: 480 },
-            { title: "切配料", desc: "酪梨去皮切大方塊；櫻桃番茄對半切開；洗淨芝麻葉並瀝乾水分。", timeLimit: 180 },
-            { title: "拌醬裝盤", desc: "將暖雞肉片、酪梨塊、番茄與芝麻葉放入大碗中，淋上青醬輕輕翻拌，使所有食材裹上醬汁即可盛盤。", timeLimit: 120 }
-        ],
-        reviews: [
-            { author: "健美先生", rating: 5, date: "2026-05-29", text: "溫熱的雞肉跟冰涼的酪梨中和起來非常舒服，青醬讓整碗沙拉味道大升級。" }
         ]
     }
 ];
@@ -772,7 +181,10 @@ const State = {
     timerRunning: false,
     
     // Custom Reviews added in session
-    customReviews: {} // recipeId -> Array of review objects
+    customReviews: {}, // recipeId -> Array of review objects
+
+    // Scroll restore: 從詳情頁回食譜市集時，回到原本列表位置
+    recipeListScrollY: 0
 };
 
 // 3. INITIALIZATION AND ROUTING
@@ -792,13 +204,24 @@ function initApp() {
     setupGuidedTimer();
     setupCustomModals();
     
+    // 每次進網站都重新隨機排序既有料理
+    shuffleRecipesForNewVisit();
+
     // Load initial views
     renderRecipeGrid();
-    updateActivePage("recipes");
+    updateActivePage("recipes", { skipSave: true });
     
     // Render flavor matrix initial state
     renderMatrixSatelliteNodes();
     updateMatrixSidePanel();
+
+    // 先恢復使用者上次所在頁面；TheMealDB 載入完後再補一次，確保外部食譜詳情也能恢復
+    restoreSavedRoute(false);
+
+    // TheMealDB 大量食譜載入
+    loadTheMealDBRecipes().then(() => {
+        restoreSavedRoute(true);
+    });
 }
 
 // 4. THEME CONTROL
@@ -867,7 +290,7 @@ function setupPageNavigation() {
             if (l.getAttribute("data-target") === "recipes") l.classList.add("active");
             else l.classList.remove("active");
         });
-        window.scrollTo(0, 0);
+        // 保留目前捲動位置
     });
 
     // Logo Click Scroll Down Button
@@ -878,11 +301,13 @@ function setupPageNavigation() {
     
     // Back to Market button in Recipe Details
     document.getElementById("detail-back-btn").addEventListener("click", () => {
-        updateActivePage("recipes");
+        updateActivePage("recipes", { restoreRecipeScroll: true });
     });
 }
 
-function updateActivePage(pageId) {
+function updateActivePage(pageId, options = {}) {
+    const previousPage = State.currentPage;
+
     // Hide all views
     document.querySelectorAll(".page-view").forEach(view => {
         view.classList.remove("active");
@@ -893,12 +318,119 @@ function updateActivePage(pageId) {
     if (targetPage) {
         targetPage.classList.add("active");
         State.currentPage = pageId;
+        syncHeroVisibility(pageId);
+        if (!options.skipSave) saveCurrentRoute(pageId);
     }
     
     // Extra view updates
     if (pageId === "planner") {
         renderMealPlanner();
     }
+
+    // 從食譜詳情回到食譜市集時，停在使用者原本滑到的位置
+    if (pageId === "recipes" && previousPage === "detail" && options.restoreRecipeScroll !== false) {
+        restoreRecipeListScroll();
+    }
+}
+
+function saveRecipeListScroll() {
+    State.recipeListScrollY = window.scrollY || 0;
+    try {
+        sessionStorage.setItem("gourmet-haven-recipe-scroll-y", String(State.recipeListScrollY));
+    } catch (error) {
+        console.warn("儲存食譜市集捲動位置失敗：", error);
+    }
+}
+
+function restoreRecipeListScroll() {
+    let targetY = State.recipeListScrollY || 0;
+    try {
+        const saved = sessionStorage.getItem("gourmet-haven-recipe-scroll-y");
+        if (saved !== null) targetY = Number(saved) || 0;
+    } catch (error) {
+        console.warn("讀取食譜市集捲動位置失敗：", error);
+    }
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
+        });
+    });
+}
+
+function scrollToRecipeDetailTop() {
+    requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+}
+
+function shuffleRecipesForNewVisit() {
+    shuffleArrayInPlace(RECIPES);
+}
+
+function shuffleArrayInPlace(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function syncHeroVisibility(pageId) {
+    const hero = document.getElementById("hero-banner");
+    if (!hero) return;
+    hero.style.display = pageId === "detail" ? "none" : "flex";
+}
+
+function saveCurrentRoute(pageId, recipeId = State.selectedRecipeId) {
+    try {
+        const route = { page: pageId, recipeId, savedAt: Date.now() };
+        localStorage.setItem("gourmet-haven-current-route", JSON.stringify(route));
+        const hash = pageId === "detail" && recipeId
+            ? `#detail=${encodeURIComponent(recipeId)}`
+            : `#page=${encodeURIComponent(pageId)}`;
+        if (window.location.hash !== hash) history.replaceState(null, "", hash);
+    } catch (error) {
+        console.warn("儲存頁面位置失敗：", error);
+    }
+}
+
+function getSavedRoute() {
+    try {
+        const hash = window.location.hash || "";
+        const detailMatch = hash.match(/^#detail=(.+)$/);
+        if (detailMatch) return { page: "detail", recipeId: decodeURIComponent(detailMatch[1]) };
+        const pageMatch = hash.match(/^#page=(.+)$/);
+        if (pageMatch) return { page: decodeURIComponent(pageMatch[1]) };
+        const raw = localStorage.getItem("gourmet-haven-current-route");
+        return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function restoreSavedRoute(allowMealDBDetail = false) {
+    const saved = getSavedRoute();
+    if (!saved || !saved.page) return false;
+
+    if (saved.page === "detail" && saved.recipeId) {
+        const recipeExists = RECIPES.some(r => r.id === saved.recipeId);
+        const isMealDB = String(saved.recipeId).startsWith("mealdb-");
+        if (!recipeExists || (isMealDB && !allowMealDBDetail)) return false;
+        showRecipeDetail(saved.recipeId, { skipSave: true, skipSaveRecipeScroll: true });
+        return true;
+    }
+
+    updateActivePage(saved.page, { skipSave: true });
+    syncActiveNavLink(saved.page);
+    return true;
+}
+
+function syncActiveNavLink(pageId) {
+    document.querySelectorAll(".nav-menu .nav-link").forEach(l => {
+        if (l.getAttribute("data-target") === pageId) l.classList.add("active");
+        else l.classList.remove("active");
+    });
 }
 
 // 7. RECIPES GRID DISPLAY
@@ -1080,19 +612,62 @@ function setupSearchAutoComplete() {
 }
 
 // 9. RECIPE DETAIL PANEL HYDRATION
-function showRecipeDetail(recipeId) {
+async function showRecipeDetail(recipeId, options = {}) {
     State.selectedRecipeId = recipeId;
     State.selectedServing = 2; // Reset serving count
-    
-    const recipe = RECIPES.find(r => r.id === recipeId);
+
+    let recipe = RECIPES.find(r => r.id === recipeId);
     if (!recipe) return;
-    
-    updateActivePage("detail");
-    window.scrollTo(0, 0);
-    
+
+    // 從主食譜列表進入詳情前，先記住目前列表滑動位置
+    if (State.currentPage === "recipes" && !options.skipSaveRecipeScroll) {
+        saveRecipeListScroll();
+    }
+
+    updateActivePage("detail", { skipSave: options.skipSave });
+    if (!options.skipSave) saveCurrentRoute("detail", recipeId);
+
+    // 進入食譜詳情頁時一律回到詳情頁最頂端
+    scrollToRecipeDetailTop();
+    // 不再自動往上捲動：讓使用者點進食譜後停留在目前視窗位置。
+
+    // TheMealDB 食譜採用「先顯示卡片、點進去再抓完整資料與翻譯」
+    // 這樣首頁不會等很久才出現新食譜。
+    if (recipe.needsMealDBDetail) {
+        renderRecipeDetailLoading(recipe.title || "TheMealDB 食譜");
+        try {
+            await hydrateMealDBRecipe(recipe.id);
+        } catch (error) {
+            console.error("TheMealDB 詳細資料/翻譯載入失敗：", error);
+            showToast("食譜詳細資料載入失敗，請稍後再試。");
+        }
+    }
+
     // Trigger details render
     renderRecipeDetailContent();
     renderReviewsList();
+}
+
+function renderRecipeDetailLoading(title) {
+    const detailContent = document.getElementById("recipe-detail-content");
+    if (!detailContent) return;
+
+    detailContent.innerHTML = `
+        <div class="glass-card" style="grid-column: 1 / -1; padding: 4rem; text-align: center;">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 1rem;">正在載入「${title}」</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                正在取得完整食材、料理步驟，並翻譯成繁體中文，第一次載入會稍久，之後會快很多。
+            </p>
+            <div style="width: 56px; height: 56px; margin: 0 auto; border-radius: 50%; border: 4px solid var(--border-glass); border-top-color: var(--accent-gold); animation: mealdb-spin 1s linear infinite;"></div>
+        </div>
+    `;
+
+    if (!document.getElementById("mealdb-spin-style")) {
+        const style = document.createElement("style");
+        style.id = "mealdb-spin-style";
+        style.textContent = `@keyframes mealdb-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+    }
 }
 
 function renderRecipeDetailContent() {
@@ -2203,5 +1778,690 @@ function setupCustomModals() {
                 });
             }
         }
+    }
+}
+
+
+/* ========================================================================== 
+   17. THEMEALDB API INTEGRATION - 快速載入 + 點擊後完整資料 + 繁中翻譯
+   ========================================================================== */
+const THEMEALDB_CONFIG = {
+    baseUrl: "https://www.themealdb.com/api/json/v1/1",
+    categories: ["Seafood", "Beef", "Chicken", "Pork", "Vegetarian", "Dessert"],
+    maxRecipes: 48,
+    perCategoryLimit: 8,
+    summaryCacheKey: "gourmet-haven-mealdb-summary-v9",
+    detailCachePrefix: "gourmet-haven-mealdb-detail-v9-",
+    translationCachePrefix: "gourmet-haven-zh-tw-v9-"
+};
+
+const TRANSLATION_CONFIG = {
+    enabled: true,
+    target: "zh-TW",
+    source: "en",
+    // 使用免金鑰 MyMemory 做示範。正式作品建議改成自己的後端/Serverless 串 Azure Translator，避免前端暴露金鑰。
+    provider: "mymemory"
+};
+
+async function loadTheMealDBRecipes() {
+    if (State.mealDbLoading || State.mealDbLoaded) return;
+    State.mealDbLoading = true;
+
+    try {
+        console.log("TheMealDB：快速載入食譜卡片...");
+
+        const cachedSummaries = readJsonCache(THEMEALDB_CONFIG.summaryCacheKey);
+        if (Array.isArray(cachedSummaries) && cachedSummaries.length > 0) {
+            pushMealDBRecipes(cachedSummaries);
+            State.mealDbLoaded = true;
+            State.mealDbLoading = false;
+            renderRecipeGrid();
+            console.log(`TheMealDB：使用快取載入 ${cachedSummaries.length} 張卡片`);
+            return;
+        }
+
+        const summaryMap = new Map();
+
+        // 只抓清單，不卡首頁；完整食材/步驟等使用者點進去時再抓。
+        for (const category of THEMEALDB_CONFIG.categories) {
+            if (summaryMap.size >= THEMEALDB_CONFIG.maxRecipes) break;
+
+            const res = await fetch(`${THEMEALDB_CONFIG.baseUrl}/filter.php?c=${encodeURIComponent(category)}`);
+            if (!res.ok) continue;
+
+            const data = await res.json();
+            const meals = (data.meals || []).slice(0, THEMEALDB_CONFIG.perCategoryLimit);
+
+            meals.forEach(meal => {
+                if (meal && meal.idMeal && summaryMap.size < THEMEALDB_CONFIG.maxRecipes) {
+                    summaryMap.set(meal.idMeal, createMealDBSummaryRecipe(meal, category));
+                }
+            });
+
+            // 每抓完一個分類就重畫一次，使用者不用等全部完成。
+            pushMealDBRecipes([...summaryMap.values()]);
+            renderRecipeGrid();
+        }
+
+        const summaries = [...summaryMap.values()];
+        writeJsonCache(THEMEALDB_CONFIG.summaryCacheKey, summaries);
+        State.mealDbLoaded = true;
+        renderRecipeGrid();
+        showToast(`已快速載入 ${summaries.length} 道 TheMealDB 食譜；點進去會自動翻譯。`);
+
+    } catch (error) {
+        console.error("TheMealDB 卡片載入失敗：", error);
+        showToast("TheMealDB 食譜載入失敗，請確認網路或使用 Live Server。");
+    } finally {
+        State.mealDbLoading = false;
+    }
+}
+
+function pushMealDBRecipes(recipes) {
+    const newRecipes = recipes.filter(recipe => !RECIPES.some(r => r.id === recipe.id));
+    shuffleArrayInPlace(newRecipes);
+
+    newRecipes.forEach(recipe => {
+        const insertAt = Math.floor(Math.random() * (RECIPES.length + 1));
+        RECIPES.splice(insertAt, 0, recipe);
+    });
+}
+
+function createMealDBSummaryRecipe(meal, category) {
+    const cachedDetail = readJsonCache(`${THEMEALDB_CONFIG.detailCachePrefix}${meal.idMeal}`);
+    if (cachedDetail) return cachedDetail;
+
+    const estimatedTimes = estimateMealDBSummaryTimes(category, meal.strMeal);
+    const chineseTitle = getSmartChineseMealName(meal.strMeal || "TheMealDB 食譜", category);
+
+    return {
+        id: `mealdb-${meal.idMeal}`,
+        mealDbId: meal.idMeal,
+        needsMealDBDetail: true,
+        title: chineseTitle,
+        englishTitle: meal.strMeal || "TheMealDB Recipe",
+        image: meal.strMealThumb || "images/hero_background.png",
+        description: buildMealDBSummaryDescription(meal.strMeal, category),
+        prepTime: estimatedTimes.prepTime,
+        cookTime: estimatedTimes.cookTime,
+        totalTime: estimatedTimes.totalTime,
+        difficulty: estimateMealDBDifficultyFromCategory(category, meal.strMeal),
+        diet: category === "Vegetarian" ? "素食" : inferMealDBDietFromCategory(category),
+        servingDefault: 2,
+        flavors: inferMealDBSummaryFlavorProfile(category, meal.strMeal),
+        ingredients: [{ name: translateCategoryName(category), amount: 1, unit: "分類", category: "pantry" }],
+        steps: [{ title: "載入完整食譜", desc: "點進詳情後會自動取得完整烹飪指導。", timeLimit: 60 }],
+        reviews: [{ author: "TheMealDB", rating: 4, date: new Date().toISOString().split('T')[0], text: "外部食譜來源，點進後載入完整資料。" }],
+        source: "TheMealDB"
+    };
+}
+
+async function hydrateMealDBRecipe(recipeId) {
+    const recipe = RECIPES.find(r => r.id === recipeId);
+    if (!recipe || !recipe.needsMealDBDetail) return recipe;
+
+    const mealDbId = recipe.mealDbId || recipe.id.replace("mealdb-", "");
+    const cacheKey = `${THEMEALDB_CONFIG.detailCachePrefix}${mealDbId}`;
+    const cachedDetail = readJsonCache(cacheKey);
+
+    if (cachedDetail) {
+        Object.assign(recipe, cachedDetail, { needsMealDBDetail: false });
+        return recipe;
+    }
+
+    showToast("正在載入完整食材與翻譯，第一次會稍久...");
+
+    const res = await fetch(`${THEMEALDB_CONFIG.baseUrl}/lookup.php?i=${encodeURIComponent(mealDbId)}`);
+    if (!res.ok) throw new Error(`lookup failed: ${res.status}`);
+
+    const data = await res.json();
+    const meal = data.meals && data.meals[0];
+    if (!meal) throw new Error("TheMealDB detail not found");
+
+    let fullRecipe = convertMealDBFullMealToRecipe(meal);
+
+    if (TRANSLATION_CONFIG.enabled) {
+        fullRecipe = await translateMealDBRecipe(fullRecipe);
+    }
+
+    fullRecipe.needsMealDBDetail = false;
+    fullRecipe.mealDbId = mealDbId;
+
+    Object.assign(recipe, fullRecipe);
+    writeJsonCache(cacheKey, fullRecipe);
+
+    return recipe;
+}
+
+function convertMealDBFullMealToRecipe(meal) {
+    const ingredients = extractMealDBIngredients(meal);
+    const steps = createGuidedStepsFromMealDBInstructions(meal);
+    const estimatedTimes = estimateMealDBTimes(meal, steps);
+
+    return {
+        id: `mealdb-${meal.idMeal}`,
+        mealDbId: meal.idMeal,
+        category: meal.strCategory || "",
+        area: meal.strArea || "",
+        title: getSmartChineseMealName(meal.strMeal || "TheMealDB 精選食譜", meal.strCategory),
+        englishTitle: meal.strMeal || "TheMealDB Recipe",
+        image: meal.strMealThumb || "images/hero_background.png",
+        description: buildMealDBDescription(meal),
+        prepTime: `${estimatedTimes.prep} 分鐘`,
+        cookTime: `${estimatedTimes.cook} 分鐘`,
+        totalTime: `${estimatedTimes.total} 分鐘`,
+        difficulty: estimateMealDBDifficulty(steps, meal.strCategory),
+        diet: inferMealDBDiet(meal, ingredients),
+        servingDefault: 2,
+        flavors: inferMealDBFlavorProfile(meal, ingredients),
+        ingredients,
+        steps,
+        reviews: [{
+            author: "TheMealDB",
+            rating: 4,
+            date: new Date().toISOString().split('T')[0],
+            text: `完整食譜資料由 TheMealDB 匯入。分類：${meal.strCategory || "未分類"}${meal.strArea ? `，地區：${meal.strArea}` : ""}。`
+        }],
+        source: "TheMealDB",
+        sourceUrl: meal.strSource || meal.strYoutube || "https://www.themealdb.com/"
+    };
+}
+
+async function translateMealDBRecipe(recipe) {
+    const translatedIngredients = await Promise.all(recipe.ingredients.map(async ing => ({
+        ...ing,
+        name: translateIngredientByDictionary(ing.name) || polishChineseText(await translateTextToZhTW(ing.name))
+    })));
+
+    const chineseTitle = getSmartChineseMealName(recipe.englishTitle || recipe.title, recipe.category, translatedIngredients);
+    const translatedSteps = await Promise.all(recipe.steps.map(async (step, idx) => {
+        const translatedDesc = polishChineseText(await translateTextToZhTW(step.desc));
+        return {
+            ...step,
+            title: createChineseStepTitle(translatedDesc, idx),
+            desc: translatedDesc
+        };
+    }));
+
+    return {
+        ...recipe,
+        title: chineseTitle || recipe.title,
+        description: buildChineseRecipeIntro({
+            ...recipe,
+            title: chineseTitle || recipe.title,
+            ingredients: translatedIngredients
+        }),
+        ingredients: translatedIngredients,
+        steps: translatedSteps,
+        reviews: recipe.reviews.map(r => ({ ...r, text: "此食譜已由 TheMealDB 匯入，並已整理成繁體中文料理說明。" }))
+    };
+}
+
+async function translateTextToZhTW(text) {
+    const cleanText = String(text || "").trim();
+    if (!cleanText) return cleanText;
+    if (containsChinese(cleanText)) return cleanText;
+
+    const cacheKey = `${THEMEALDB_CONFIG.translationCachePrefix}${hashString(cleanText)}`;
+    const cached = localStorage.getItem(cacheKey);
+    if (cached) return cached;
+
+    try {
+        // MyMemory 單次請求不適合太長文字，因此長段落先切成小段。
+        const chunks = splitTextForTranslation(cleanText, 450);
+        const translatedChunks = [];
+
+        for (const chunk of chunks) {
+            const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(chunk)}&langpair=${TRANSLATION_CONFIG.source}|${TRANSLATION_CONFIG.target}`;
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`translation failed: ${res.status}`);
+            const data = await res.json();
+            translatedChunks.push(data?.responseData?.translatedText || chunk);
+        }
+
+        const translated = translatedChunks.join(" ").replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+        localStorage.setItem(cacheKey, translated);
+        return translated;
+    } catch (error) {
+        console.warn("翻譯失敗，保留原文：", cleanText, error);
+        return cleanText;
+    }
+}
+
+function splitTextForTranslation(text, maxLength) {
+    const sentences = text.replace(/\s+/g, " ").split(/(?<=[.!?])\s+/).filter(Boolean);
+    const chunks = [];
+    let current = "";
+
+    sentences.forEach(sentence => {
+        if ((current + " " + sentence).trim().length > maxLength && current) {
+            chunks.push(current.trim());
+            current = sentence;
+        } else {
+            current = `${current} ${sentence}`.trim();
+        }
+    });
+
+    if (current) chunks.push(current.trim());
+    return chunks.length ? chunks : [text.slice(0, maxLength)];
+}
+
+function translateIngredientByDictionary(name) {
+    const dictionary = {
+        "salmon": "鮭魚", "haddock": "黑線鱈", "cod": "鱈魚", "fish": "魚", "shrimp": "蝦仁", "prawns": "明蝦", "beef": "牛肉", "chicken": "雞肉", "pork": "豬肉", "egg": "雞蛋",
+        "onion": "洋蔥", "garlic": "大蒜", "tomato": "番茄", "potato": "馬鈴薯", "carrot": "胡蘿蔔", "leek": "韭蔥", "celery": "芹菜", "parsley": "巴西里", "coriander": "香菜", "basil": "羅勒", "mushroom": "蘑菇",
+        "salt": "鹽", "pepper": "胡椒", "sugar": "糖", "flour": "麵粉", "butter": "奶油", "cream": "鮮奶油", "milk": "牛奶", "cheese": "起司", "olive oil": "橄欖油", "oil": "油", "water": "水",
+        "lemon": "檸檬", "lime": "萊姆", "vinegar": "醋", "wine": "葡萄酒", "stock": "高湯", "broth": "高湯", "paprika": "紅椒粉", "curry powder": "咖哩粉",
+        "haddock": "黑線鱈", "cod": "鱈魚", "mussels": "淡菜", "clams": "蛤蜊", "peas": "豌豆", "double cream": "高脂鮮奶油", "single cream": "鮮奶油", "plain flour": "中筋麵粉", "bay leaf": "月桂葉", "thyme": "百里香", "rosemary": "迷迭香", "ginger": "薑", "soy sauce": "醬油", "mustard": "芥末"
+    };
+
+    const key = String(name || "").trim().toLowerCase();
+    return dictionary[key] || null;
+}
+
+
+const MEALDB_TITLE_MAP = {
+    "fiskesuppe": "挪威奶油魚湯",
+    "creamy norwegian fish soup": "挪威奶油魚湯",
+    "fish soup": "鮮魚湯",
+    "fish pie": "英式奶香魚派",
+    "kedgeree": "英式咖哩燻魚飯",
+    "sushi": "壽司",
+    "baked salmon with fennel & tomatoes": "茴香番茄烤鮭魚",
+    "recheado masala fish": "印度香料烤魚",
+    "beef and mustard pie": "芥末牛肉派",
+    "beef wellington": "威靈頓牛排",
+    "beef bourguignon": "法式紅酒燉牛肉",
+    "chicken alfredo primavera": "春蔬奶油雞肉義大利麵",
+    "chicken basquaise": "巴斯克燉雞",
+    "chicken handi": "印度香料燉雞",
+    "pork cassoulet": "法式豬肉白豆燉鍋",
+    "vegetarian chilli": "蔬食辣豆燉醬",
+    "apple frangipan tart": "杏仁蘋果塔",
+    "banoffee pie": "香蕉太妃派",
+    "brownie": "巧克力布朗尼"
+};
+
+const TITLE_TERM_MAP = [
+    ["creamy", "奶油"], ["norwegian", "挪威"], ["fish", "鮮魚"], ["soup", "湯"], ["salmon", "鮭魚"],
+    ["beef", "牛肉"], ["chicken", "雞肉"], ["pork", "豬肉"], ["lamb", "羊肉"], ["seafood", "海鮮"],
+    ["pie", "派"], ["curry", "咖哩"], ["spicy", "香辣"], ["roast", "烤"], ["roasted", "烤"],
+    ["baked", "焗烤"], ["grilled", "炙烤"], ["fried", "香煎"], ["stew", "燉菜"], ["stewed", "燉"],
+    ["rice", "飯"], ["pasta", "義大利麵"], ["noodles", "麵"], ["cake", "蛋糕"], ["tart", "塔"],
+    ["chocolate", "巧克力"], ["apple", "蘋果"], ["banana", "香蕉"], ["lemon", "檸檬"], ["mustard", "芥末"],
+    ["garlic", "蒜香"], ["tomato", "番茄"], ["mushroom", "蘑菇"], ["vegetarian", "蔬食"]
+];
+
+function getSmartChineseMealName(englishName, category = "", ingredients = []) {
+    const raw = String(englishName || "").trim();
+    const key = raw.toLowerCase().replace(/\s*\([^)]*\)\s*/g, "").trim();
+    if (MEALDB_TITLE_MAP[key]) return MEALDB_TITLE_MAP[key];
+
+    // 如果名稱有括號補充，例如 Fiskesuppe (Creamy Norwegian Fish Soup)，優先翻括號內的英文說明。
+    const parenthesized = raw.match(/\(([^)]+)\)/);
+    if (parenthesized) {
+        const pKey = parenthesized[1].toLowerCase().trim();
+        if (MEALDB_TITLE_MAP[pKey]) return MEALDB_TITLE_MAP[pKey];
+        const translatedParentheses = translateTitleByTerms(parenthesized[1]);
+        if (translatedParentheses && translatedParentheses !== parenthesized[1]) return translatedParentheses;
+    }
+
+    const translated = translateTitleByTerms(raw);
+    if (translated && translated !== raw) return translated;
+
+    const mainIngredient = ingredients && ingredients.length ? ingredients[0].name : translateCategoryName(category);
+    return `${mainIngredient || "異國"}風味料理`;
+}
+
+function translateTitleByTerms(title) {
+    let clean = String(title || "")
+        .replace(/\([^)]*\)/g, "")
+        .replace(/&/g, "and")
+        .replace(/[^a-zA-Z\s-]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (!clean) return "";
+
+    let words = clean.toLowerCase().split(/[\s-]+/).filter(Boolean);
+    let result = [];
+
+    words.forEach(word => {
+        const found = TITLE_TERM_MAP.find(([en]) => en === word);
+        if (found) result.push(found[1]);
+    });
+
+    result = [...new Set(result)];
+    if (result.length === 0) return clean;
+
+    // 讓中文菜名比較自然：烹調法 + 風味 + 主食材 + 類型
+    const dishType = result.find(x => ["湯", "派", "飯", "義大利麵", "麵", "蛋糕", "塔", "燉菜"].includes(x));
+    const proteins = result.filter(x => ["鮮魚", "鮭魚", "牛肉", "雞肉", "豬肉", "羊肉", "海鮮"].includes(x));
+    const methods = result.filter(x => ["奶油", "香辣", "烤", "焗烤", "炙烤", "香煎", "燉", "咖哩", "蒜香", "番茄", "芥末", "蘑菇", "蔬食"].includes(x));
+    const others = result.filter(x => !proteins.includes(x) && !methods.includes(x) && x !== dishType);
+
+    return [...methods, ...others, ...proteins, dishType].filter(Boolean).join("");
+}
+
+function buildMealDBSummaryDescription(englishName, category) {
+    const chineseName = getSmartChineseMealName(englishName, category);
+    const categoryName = translateCategoryName(category);
+    const style = getCategoryCookingStyle(category);
+    return `${chineseName}是一道以${categoryName}為主題的異國料理，特色是${style}。點進食譜後，系統會載入完整食材、份量與逐步料理引導，並整理成繁體中文說明。`;
+}
+
+function buildChineseRecipeIntro(recipe) {
+    const title = recipe.title || getSmartChineseMealName(recipe.englishTitle, recipe.category, recipe.ingredients);
+    const ingredients = (recipe.ingredients || []).slice(0, 4).map(i => i.name).filter(Boolean);
+    const ingredientText = ingredients.length ? ingredients.join("、") : translateCategoryName(recipe.category);
+    const categoryName = translateCategoryName(recipe.category);
+    const style = getCategoryCookingStyle(recipe.category);
+    const time = recipe.totalTime || "約 30 分鐘";
+    return `${title}是一道${categoryName}風格料理，以${ingredientText}作為主要元素，呈現${style}的風味層次。這道料理預估完成時間為${time}，適合依照頁面中的食材明細與引導式步驟一步一步完成。`;
+}
+
+function translateCategoryName(category) {
+    const map = {
+        Seafood: "海鮮", Beef: "牛肉", Chicken: "雞肉", Pork: "豬肉", Vegetarian: "蔬食", Dessert: "甜點",
+        Lamb: "羊肉", Pasta: "義大利麵", Starter: "前菜", Side: "配菜", Vegan: "純素"
+    };
+    return map[category] || category || "料理";
+}
+
+function getCategoryCookingStyle(category) {
+    const map = {
+        Seafood: "鮮味清爽、適合煎烤或燉煮的海洋風味",
+        Beef: "濃郁厚實、帶有肉汁與醬汁香氣的飽滿口感",
+        Chicken: "溫和耐搭配，能吸收香料、奶油或番茄醬汁的風味",
+        Pork: "油脂香氣明顯，適合慢燉、烘烤或香煎",
+        Vegetarian: "蔬菜香甜與香料層次並重，口感清爽不厚重",
+        Dessert: "甜香柔和，常帶有奶油、果香或烘焙香氣"
+    };
+    return map[category] || "具有鮮明地方特色與家常料理的溫暖口感";
+}
+
+function estimateMealDBSummaryTimes(category, name = "") {
+    const lower = `${category || ""} ${name || ""}`.toLowerCase();
+    const isDessert = /dessert|cake|pie|tart|pudding|brownie|bread/.test(lower);
+    const isSlow = /stew|casserole|cassoulet|bourguignon|wellington|roast|braised/.test(lower);
+    const isBakedRice = /arroz|rice|baked|oven|horno/.test(lower);
+    const isSeafood = /seafood|fish|salmon|cod|haddock|prawn|shrimp/.test(lower);
+    const isVegetarian = /vegetarian|vegan|tofu|bean|lentil/.test(lower);
+
+    let prep = 12;
+    let cook = 25;
+    if (isDessert) { prep = 20; cook = 45; }
+    else if (isSlow) { prep = 20; cook = 75; }
+    else if (isBakedRice) { prep = 15; cook = 55; }
+    else if (isSeafood) { prep = 12; cook = 20; }
+    else if (isVegetarian) { prep = 12; cook = 30; }
+    else if (/beef|pork|lamb/.test(lower)) { prep = 15; cook = 45; }
+    else if (/chicken/.test(lower)) { prep = 15; cook = 35; }
+
+    return {
+        prepTime: `${prep} 分鐘`,
+        cookTime: `${cook} 分鐘`,
+        totalTime: `${prep + cook} 分鐘`
+    };
+}
+
+function estimateMealDBDifficultyFromCategory(category, name = "") {
+    const c = String(category || "").toLowerCase();
+    const n = String(name || "").toLowerCase();
+    if (c.includes("dessert") || n.includes("wellington") || n.includes("bourguignon")) return "高級";
+    if (c.includes("beef") || c.includes("pork") || n.includes("pie") || n.includes("stew")) return "中級";
+    return "初級";
+}
+
+function inferMealDBDietFromCategory(category) {
+    if (category === "Vegetarian") return "素食";
+    if (["Seafood", "Beef", "Chicken", "Pork"].includes(category)) return "低碳水";
+    return "無限制";
+}
+
+function inferMealDBSummaryFlavorProfile(category, name = "") {
+    const c = String(category || "").toLowerCase();
+    const n = String(name || "").toLowerCase();
+    if (c.includes("dessert")) return { sweet: 8, sour: 2, spicy: 1, savory: 3, texture: 7 };
+    if (n.includes("curry") || n.includes("spicy") || n.includes("chilli")) return { sweet: 2, sour: 3, spicy: 8, savory: 8, texture: 6 };
+    if (c.includes("seafood")) return { sweet: 2, sour: 4, spicy: 2, savory: 7, texture: 6 };
+    if (c.includes("beef") || c.includes("pork")) return { sweet: 2, sour: 2, spicy: 3, savory: 9, texture: 8 };
+    return { sweet: 3, sour: 3, spicy: 3, savory: 7, texture: 6 };
+}
+
+function createChineseStepTitle(desc, idx) {
+    const clean = String(desc || "").replace(/^[第\d\s.、-]+步[:：]?/, "").trim();
+    if (!clean) return `第 ${idx + 1} 步`;
+    const first = clean.split(/[，。；：]/)[0].slice(0, 16);
+    return `第 ${idx + 1} 步：${first}`;
+}
+
+function polishChineseText(text) {
+    if (!text) return text;
+    let output = String(text);
+    const replacements = [
+        [/奶油 挪威 鮮魚 湯/g, "挪威奶油魚湯"],
+        [/鮮魚 湯/g, "鮮魚湯"],
+        [/牛肉 派/g, "牛肉派"],
+        [/雞肉 義大利麵/g, "雞肉義大利麵"],
+        [/橄欖 油/g, "橄欖油"],
+        [/檸檬 果汁/g, "檸檬汁"],
+        [/加入/g, "加入"],
+        [/攪拌/g, "攪拌"],
+        [/煮/g, "煮"],
+        [/服務/g, "上桌"],
+        [/盤子/g, "盤中"],
+        [/直到/g, "直到"],
+        [/分鐘/g, "分鐘"],
+        [/\s+/g, " "]
+    ];
+    replacements.forEach(([from, to]) => output = output.replace(from, to));
+    return output.trim();
+}
+
+function extractMealDBIngredients(meal) {
+    const ingredients = [];
+
+    for (let i = 1; i <= 20; i++) {
+        const name = (meal[`strIngredient${i}`] || "").trim();
+        const measure = (meal[`strMeasure${i}`] || "").trim();
+        if (!name) continue;
+
+        const parsed = parseMealDBMeasure(measure);
+        ingredients.push({
+            name,
+            amount: parsed.amount,
+            unit: parsed.unit,
+            category: categorizeMealDBIngredient(name)
+        });
+    }
+
+    return ingredients.length ? ingredients : [{ name: "主要食材", amount: 1, unit: "份", category: "pantry" }];
+}
+
+function parseMealDBMeasure(measure) {
+    if (!measure) return { amount: 1, unit: "適量" };
+
+    const cleaned = measure.replace(/\s+/g, " ").trim();
+    const fractionMap = { "¼": 0.25, "½": 0.5, "¾": 0.75, "⅓": 1 / 3, "⅔": 2 / 3 };
+
+    const unicodeFraction = cleaned.match(/^([¼½¾⅓⅔])\s*(.*)$/);
+    if (unicodeFraction) return { amount: fractionMap[unicodeFraction[1]], unit: unicodeFraction[2] || "份" };
+
+    const mixedFraction = cleaned.match(/^(\d+)\s+(\d+)\/(\d+)\s*(.*)$/);
+    if (mixedFraction) return { amount: Number(mixedFraction[1]) + Number(mixedFraction[2]) / Number(mixedFraction[3]), unit: mixedFraction[4] || "份" };
+
+    const fraction = cleaned.match(/^(\d+)\/(\d+)\s*(.*)$/);
+    if (fraction) return { amount: Number(fraction[1]) / Number(fraction[2]), unit: fraction[3] || "份" };
+
+    const number = cleaned.match(/^(\d+(?:\.\d+)?)\s*(.*)$/);
+    if (number) return { amount: Number(number[1]), unit: number[2] || "份" };
+
+    return { amount: 1, unit: cleaned || "適量" };
+}
+
+function categorizeMealDBIngredient(name) {
+    const n = name.toLowerCase();
+    const protein = ["beef", "chicken", "pork", "fish", "salmon", "cod", "haddock", "tuna", "shrimp", "prawn", "egg", "lamb", "turkey", "duck", "bacon", "ham", "sausage", "tofu", "crab", "mussels", "clam"];
+    const dairy = ["milk", "cream", "butter", "cheese", "yogurt", "yoghurt", "oil", "ghee"];
+    const produce = ["onion", "garlic", "tomato", "potato", "carrot", "lettuce", "pepper", "chilli", "chili", "lemon", "lime", "apple", "banana", "avocado", "mushroom", "parsley", "coriander", "cilantro", "basil", "spinach", "cabbage", "ginger", "leek", "celery", "peas"];
+
+    if (protein.some(k => n.includes(k))) return "protein";
+    if (dairy.some(k => n.includes(k))) return "dairy";
+    if (produce.some(k => n.includes(k))) return "produce";
+    return "pantry";
+}
+
+function createGuidedStepsFromMealDBInstructions(meal) {
+    const raw = (meal.strInstructionsZH || meal.strInstructions || "").trim();
+
+    if (!raw) {
+        return [{ title: "料理步驟", desc: "TheMealDB 未提供詳細步驟。", timeLimit: 120 }];
+    }
+
+    let parts = raw.split(/\r?\n+/).map(s => s.trim()).filter(Boolean);
+
+    if (parts.length <= 1) {
+        parts = raw.replace(/\s+/g, " ").split(/(?<=[。！？.!?])\s+/).map(s => s.trim()).filter(Boolean);
+    }
+
+    const merged = [];
+    for (const part of parts) {
+        if (merged.length > 0 && part.length < 45) {
+            merged[merged.length - 1] += " " + part;
+        } else {
+            merged.push(part);
+        }
+    }
+
+    return merged.slice(0, 14).map((desc, idx) => ({
+        title: `第 ${idx + 1} 步`,
+        desc,
+        timeLimit: estimateMealDBStepSeconds(desc)
+    }));
+}
+
+function estimateMealDBStepSeconds(desc) {
+    const lower = String(desc || "").toLowerCase();
+
+    const hourMatch = lower.match(/(\d+(?:\.\d+)?)\s*(hours|hour|hrs|hr)/);
+    if (hourMatch) return Math.min(7200, Math.max(300, Math.round(Number(hourMatch[1]) * 3600)));
+
+    const minuteMatch = lower.match(/(\d+(?:\.\d+)?)\s*(minutes|minute|mins|min)/);
+    if (minuteMatch) return Math.min(2400, Math.max(60, Math.round(Number(minuteMatch[1]) * 60)));
+
+    if (desc.length > 220) return 360;
+    if (desc.length > 120) return 240;
+    return 120;
+}
+
+function estimateMealDBTimes(meal, steps) {
+    const name = String(meal?.strMeal || "").toLowerCase();
+    const category = String(meal?.strCategory || "").toLowerCase();
+    const instructions = String(meal?.strInstructions || "").toLowerCase();
+    const allText = `${name} ${category} ${instructions}`;
+
+    let explicitCookMinutes = 0;
+    const minuteMatches = [...allText.matchAll(/(\d+(?:\.\d+)?)\s*(minutes|minute|mins|min)/g)];
+    minuteMatches.forEach(match => explicitCookMinutes += Number(match[1]));
+    const hourMatches = [...allText.matchAll(/(\d+(?:\.\d+)?)\s*(hours|hour|hrs|hr)/g)];
+    hourMatches.forEach(match => explicitCookMinutes += Number(match[1]) * 60);
+    if (explicitCookMinutes > 0) explicitCookMinutes = Math.min(180, Math.max(10, Math.round(explicitCookMinutes)));
+
+    const hasSlowCook = /stew|casserole|cassoulet|bourguignon|braise|simmer|slow|roast/.test(allText);
+    const hasOvenRice = /arroz|rice|baked rice|oven|horno|bake/.test(allText);
+    const isDessert = /dessert|cake|pie|tart|pudding|brownie|bread/.test(allText);
+    const isSeafood = /seafood|fish|salmon|cod|haddock|prawn|shrimp/.test(allText);
+
+    let prep = 12;
+    let cook = explicitCookMinutes || 25;
+    if (!explicitCookMinutes) {
+        if (isDessert) { prep = 20; cook = 45; }
+        else if (hasSlowCook) { prep = 20; cook = 75; }
+        else if (hasOvenRice) { prep = 15; cook = 55; }
+        else if (isSeafood) { prep = 12; cook = 22; }
+        else if (/beef|pork|lamb/.test(allText)) { prep = 15; cook = 45; }
+        else if (/chicken/.test(allText)) { prep = 15; cook = 35; }
+        else if (/vegetarian|vegan|tofu|bean|lentil/.test(allText)) { prep = 12; cook = 30; }
+    } else {
+        prep = isDessert || hasSlowCook || hasOvenRice ? 15 : 10;
+    }
+    return { prep, cook, total: prep + cook };
+}
+
+function estimateMealDBTotalMinutes(steps, category) {
+    const estimated = Math.ceil(steps.reduce((sum, step) => sum + (step.timeLimit || 120), 0) / 60);
+    const c = (category || "").toLowerCase();
+    if (c.includes("dessert")) return Math.max(65, estimated);
+    if (c.includes("beef") || c.includes("pork")) return Math.max(60, estimated);
+    if (c.includes("side") || c.includes("starter")) return Math.max(20, estimated);
+    return Math.max(35, estimated);
+}
+
+function estimateMealDBDifficulty(steps, category) {
+    const c = (category || "").toLowerCase();
+    if (steps.length >= 9 || c.includes("dessert")) return "高級";
+    if (steps.length >= 5 || c.includes("beef") || c.includes("lamb")) return "中級";
+    return "初級";
+}
+
+function inferMealDBDiet(meal, ingredients) {
+    const category = (meal.strCategory || "").toLowerCase();
+    const ingredientText = ingredients.map(i => i.name.toLowerCase()).join(" ");
+    const hasMeat = /(beef|chicken|pork|lamb|fish|salmon|cod|haddock|tuna|shrimp|prawn|bacon|ham|sausage|duck|turkey|crab|mussels|clam)/.test(ingredientText);
+    const hasFlourOrBread = /(flour|bread|pasta|spaghetti|noodle|tortilla|bun|pastry)/.test(ingredientText);
+
+    const diets = [];
+    if (!hasMeat || category.includes("vegetarian") || category.includes("vegan")) diets.push("素食");
+    if (!hasFlourOrBread) diets.push("無麩質");
+    if (category.includes("seafood") || category.includes("beef") || category.includes("chicken")) diets.push("低碳水");
+    return diets.length ? [...new Set(diets)].join(",") : "無限制";
+}
+
+function inferMealDBFlavorProfile(meal, ingredients) {
+    const text = `${meal.strMeal || ""} ${meal.strCategory || ""} ${meal.strArea || ""} ${ingredients.map(i => i.name).join(" ")}`.toLowerCase();
+    return {
+        sweet: /(sugar|honey|syrup|chocolate|dessert|cake|banana|apple|mango|jam)/.test(text) ? 7 : 3,
+        sour: /(lemon|lime|vinegar|tomato|yoghurt|yogurt|wine)/.test(text) ? 6 : 2,
+        spicy: /(chilli|chili|pepper|curry|paprika|jalapeno|cayenne)/.test(text) ? 6 : 2,
+        savory: /(beef|chicken|pork|fish|salmon|cod|cheese|soy|garlic|onion|stock|broth|bacon)/.test(text) ? 8 : 5,
+        texture: /(fried|crispy|crunch|nuts|bread|pastry|batter)/.test(text) ? 8 : 6
+    };
+}
+
+function buildMealDBDescription(meal) {
+    const area = meal.strArea ? `${meal.strArea} 風格` : "國際風格";
+    const category = meal.strCategory || "料理";
+    const tags = meal.strTags ? `特色標籤：${meal.strTags.replaceAll(',', '、')}。` : "";
+    return `This ${category} recipe comes from TheMealDB. Area: ${area}. The full ingredient list and cooking instructions are imported and converted into guided cooking mode. ${tags}`;
+}
+
+function containsChinese(text) {
+    return /[\u4e00-\u9fff]/.test(text);
+}
+
+function hashString(text) {
+    let hash = 0;
+    for (let i = 0; i < text.length; i++) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i);
+        hash |= 0;
+    }
+    return String(hash).replace('-', 'n');
+}
+
+function readJsonCache(key) {
+    try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function writeJsonCache(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        console.warn("localStorage 快取失敗：", error);
     }
 }
