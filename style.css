@@ -286,6 +286,24 @@ h1, h2, h3, h4, h5, h6 {
     gap: 1rem;
 }
 
+/* 讓「我的最愛」靠近登入/登出按鈕 */
+.nav-actions-auth {
+    gap: 0.45rem;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+.nav-actions-auth .theme-toggle-btn,
+.nav-actions-auth .my-favorites-top-btn {
+    margin-right: 0;
+}
+
+.nav-actions-auth #login-btn,
+.nav-actions-auth #logout-btn {
+    margin-left: 0;
+}
+
+
 /* ==========================================
    HERO HEADER
    ========================================== */
@@ -1834,6 +1852,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.92rem;
     outline: none;
     transition: var(--transition-smooth);
+    color: #000000; /* 改成黑色 */
 }
 
 .form-group textarea {

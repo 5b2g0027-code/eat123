@@ -2865,6 +2865,60 @@ function updateFirebaseLoginStatus(text, isLogin) {
     if (loginBtn) loginBtn.style.display = isLogin ? "none" : "";
     if (registerBtn) registerBtn.style.display = isLogin ? "none" : "";
     if (logoutBtn) logoutBtn.style.display = isLogin ? "" : "none";
+
+    // 同步頁面上方/外部的登入按鈕：登入後會變成「登出」
+    syncGlobalAuthButtons(isLogin ? FirebaseAccount.user : null);
+}
+
+// 同步 HTML 裡可能存在的登入/登出按鈕
+function syncGlobalAuthButtons(user) {
+    const isLogin = !!user;
+    const username = isLogin ? getUsernameFromFirebaseUser(user) : "";
+
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const userNameEls = document.querySelectorAll("#username-display, .username-display, [data-auth-username]");
+
+    userNameEls.forEach(el => {
+        el.textContent = isLogin ? username : "";
+        el.style.display = isLogin ? "" : "none";
+    });
+
+    // 情況 A：只有一顆 #login-btn，登入後直接改成「登出」
+    if (loginBtn && !logoutBtn) {
+        loginBtn.textContent = isLogin ? "登出" : "登入";
+        loginBtn.setAttribute("aria-label", isLogin ? "登出" : "登入");
+        loginBtn.title = isLogin ? "登出" : "登入";
+        loginBtn.style.display = "";
+        loginBtn.onclick = (event) => {
+            event.preventDefault();
+            if (FirebaseAccount.user) {
+                firebaseLogout();
+            } else {
+                openFirebaseAuthPanel();
+            }
+        };
+        return;
+    }
+
+    // 情況 B：有 #login-btn 和 #logout-btn 兩顆，登入後隱藏登入、顯示登出
+    if (loginBtn) {
+        loginBtn.textContent = "登入";
+        loginBtn.style.display = isLogin ? "none" : "inline-flex";
+        loginBtn.onclick = (event) => {
+            event.preventDefault();
+            openFirebaseAuthPanel();
+        };
+    }
+
+    if (logoutBtn) {
+        logoutBtn.textContent = "登出";
+        logoutBtn.style.display = isLogin ? "inline-flex" : "none";
+        logoutBtn.onclick = (event) => {
+            event.preventDefault();
+            firebaseLogout();
+        };
+    }
 }
 
 async function ensureFirebaseUserDocument() {
@@ -3451,3 +3505,16 @@ function getFirebaseAuthErrorText(code) {
             return code || "發生未知錯誤";
     }
 }
+/* ==========================================
+   登入狀態與功能管理系統
+   ========================================== */
+
+// Firebase v10 模組版不會產生全域 auth 變數。
+// 所以不要使用 auth.signOut() / auth.onAuthStateChanged()；
+// 本專案統一使用 FirebaseAccount 與 setupFirebaseAuthSystem() 管理登入狀態。
+document.addEventListener("DOMContentLoaded", () => {
+    // 頁面剛載入先顯示未登入狀態；Firebase 初始化完成後會自動更新。
+    if (typeof syncGlobalAuthButtons === "function") {
+        syncGlobalAuthButtons(null);
+    }
+});
